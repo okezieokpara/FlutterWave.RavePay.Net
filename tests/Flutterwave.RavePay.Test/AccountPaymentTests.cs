@@ -67,9 +67,15 @@ namespace Flutterwave.RavePay.Test
             var raveConfig = new FlutterWaveRavePayConfig(publicKey, secretKey, false);
             var accountCharge = new AccountCharge(raveConfig);
 
-            var accountParams = new AccountChargeParams(publicKey, "Apara", "Emmanuel", "okpara.okezie@venturegardengroup.com", accessAcountNumber, 509, acessBank.BankCode, transRef);
+            var accountParams = new AccountChargeParams(publicKey, "Anonymous", "customer", "user@example.com", accessAcountNumber, 509, acessBank.BankCode, transRef);
             var chargeResponse = accountCharge.Charge(accountParams).Result;
 
+            if (chargeResponse.Data.Status == "success-pending-validation")
+            {
+                //If it asks for otp. Do request again
+                accountParams.Otp = sampleOtp;
+                chargeResponse = accountCharge.Charge(accountParams).Result;
+            }
 
             Assert.IsNotNull(chargeResponse.Data);
             Assert.AreEqual("success", chargeResponse.Status);

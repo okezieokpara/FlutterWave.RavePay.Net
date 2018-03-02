@@ -12,7 +12,7 @@ namespace Flutterwave.RavePay.Test
     {
         private static string publicKey = ConfigurationSettings.AppSettings.Get("publicKey");
         private static string secretKey = ConfigurationSettings.AppSettings.Get("secretKey");
-        private static string tranxRef = "1234";
+        private static string tranxRef = "4569";
         [TestMethod]
         public void CardPaymentTest()
         {
@@ -25,7 +25,7 @@ namespace Flutterwave.RavePay.Test
 
             var cha = cardCharge.Charge(new CardChargeParams(publicKey, "Okezie", "Okpara", "okeziestanley@gmail.com",
                     4556)
-            { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = "1234" }).Result;
+            { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = tranxRef }).Result;
 
 
             if (cha.Message == "AUTH_SUGGESTION" && cha.Data.SuggestedAuth == "PIN")

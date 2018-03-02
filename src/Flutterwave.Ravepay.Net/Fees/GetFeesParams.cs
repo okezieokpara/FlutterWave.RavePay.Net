@@ -16,6 +16,11 @@ namespace Flutterwave.Ravepay.Net
             Amount = amount;
             Currency = CurrencyUtil.GetCurrencyString(currency);
         }
+
+        protected GetFeesParams()
+        {
+            
+        }
         /// <summary>
         /// This is a unique key generated for each button created on Rave’s dashboard. It starts with a prefix ‘FLWPUBK’ and ends with suffix ‘X’
         /// </summary>

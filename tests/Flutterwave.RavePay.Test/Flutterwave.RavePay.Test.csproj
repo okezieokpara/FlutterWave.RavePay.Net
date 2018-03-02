@@ -57,6 +57,7 @@
     <Compile Include="CardPaymentTests.cs" />
     <Compile Include="FeesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefundTests.cs" />
     <Compile Include="TransactionTests.cs" />
   </ItemGroup>
   <ItemGroup>

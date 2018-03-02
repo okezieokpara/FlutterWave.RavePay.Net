@@ -38,6 +38,7 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("passcode")]
         public string Passcode { get; set; }
 
-
+        [JsonProperty("otp")]
+        public  string Otp { get; set; }
     }
 }

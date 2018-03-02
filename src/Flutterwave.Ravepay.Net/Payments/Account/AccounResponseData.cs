@@ -9,5 +9,8 @@ namespace Flutterwave.Ravepay.Net.Payments
     {
         [JsonProperty("flwRef")]
         public string FlwRef { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 }
