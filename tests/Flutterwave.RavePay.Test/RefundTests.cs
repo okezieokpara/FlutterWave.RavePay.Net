@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using Flutterwave.Ravepay.Net.Refunds;
+using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Flutterwave.RavePay.Test
