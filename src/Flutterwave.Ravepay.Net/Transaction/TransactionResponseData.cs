@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Flutterwave.Ravepay.Net.Payments;
 
 namespace Flutterwave.Ravepay.Net
 {
-    class TransactionResponse
+    public class TransactionResponseData: PayResponseData
     {
     }
 }

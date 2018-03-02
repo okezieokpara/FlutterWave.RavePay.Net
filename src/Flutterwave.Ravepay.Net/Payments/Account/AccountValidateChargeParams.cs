@@ -9,7 +9,7 @@ namespace Flutterwave.Ravepay.Net.Payments
             TransactionReference = transactionReference;
             Otp = otp;
         }
-        [JsonProperty("transactionreference")]
+        [JsonProperty("transaction_reference")]
         public string TransactionReference { get; set; }
         [JsonProperty("otp")]
         public  string Otp { get; set; }
