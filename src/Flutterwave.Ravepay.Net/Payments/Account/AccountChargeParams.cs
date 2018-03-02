@@ -10,12 +10,13 @@ namespace Flutterwave.Ravepay.Net.Payments
     {
 
 
-        public AccountChargeParams(string pbfPubKey, string firstName, string lastName, string email, string accountNumber, decimal amount, Bank bank) : base(pbfPubKey, firstName, lastName, email)
+        public AccountChargeParams(string pbfPubKey, string firstName, string lastName, string email, string accountNumber, decimal amount, string bank, string txRef) : base(pbfPubKey, firstName, lastName, email)
         {
             AccountNumber = accountNumber;
             Amount = amount;
             Accountbank = bank;
             PaymentType = "account";
+            TxRef = txRef;
         }
 
         [JsonProperty("accountnumber")]
@@ -29,7 +30,7 @@ namespace Flutterwave.Ravepay.Net.Payments
         public  string PaymentType { get; set; }
 
         [JsonProperty("accountbank")]
-        public Bank Accountbank { get; set; }
+        public string Accountbank { get; set; }
 
         /// <summary>
         /// This requires that the customer date of birth is collected and passed in this format DDMMYYYY
@@ -37,6 +38,7 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("passcode")]
         public string Passcode { get; set; }
 
-
+        [JsonProperty("otp")]
+        public  string Otp { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace Flutterwave.Ravepay.Net
         public VerifyTransactoinParams(string seckey, string flwRef)
         {
             Seckey = seckey;
-            Seckey = seckey;
+            FlwRef = flwRef;
             Normalize = 1;
         }
 
@@ -38,7 +38,7 @@ namespace Flutterwave.Ravepay.Net
         /// <summary>
         /// This is a unique key generated for each button created on Rave’s dashboard. It starts with a prefix ‘FLWSECK’ and ends with suffix ‘X’.
         /// </summary>
-        [JsonProperty("SECKEY ")]
+        [JsonProperty("SECKEY")]
         public string Seckey { get; set; }
 
         /// <summary>
@@ -52,5 +52,17 @@ namespace Flutterwave.Ravepay.Net
         /// </summary>
         [JsonProperty("tx_ref")]
         public string TxRef { get; set; }
+
+        /// <summary>
+        /// This retrieves the last transaction attempt linked to the txref
+        /// </summary>
+        [JsonProperty("last_attempt")]
+        public string LastAttempt { get; set; }
+
+        /// <summary>
+        /// This retrieves only successful transaction attempts linked with the txref
+        /// </summary>
+        [JsonProperty("only_successful")]
+        public string OnlySuccessful { get; set; }
     }
 }

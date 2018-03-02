@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Flutterwave.Ravepay.Net.ExchangeRates
 {
-    class ExchangeRateService
+    class RaveExchangeRateService
     {
     }
 }
