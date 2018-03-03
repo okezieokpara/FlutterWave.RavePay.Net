@@ -17,11 +17,11 @@ namespace Flutterwave.Ravepay.Net
     {
         public RavePayApiRequest()
         {
-            Config = new FlutterWaveRavePayConfig(false);
+            Config = new RavePayConfig(false);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        public RavePayApiRequest(FlutterWaveRavePayConfig config)
+        public RavePayApiRequest(RavePayConfig config)
         {
             Config = config;
             HttpClient.DefaultRequestHeaders.Accept.Clear();

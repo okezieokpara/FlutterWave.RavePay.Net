@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Flutterwave.Ravepay.Net.Currencies;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace Flutterwave.Ravepay.Net.Payments
 {
-    public class AccountCharge : ChargeBase<RaveApiResponse<AccounResponseData>, AccounResponseData>
+    public class RaveCardCharge : ChargeBase<RaveApiResponse<CardResponseData>, CardResponseData>
     {
-        public AccountCharge(FlutterWaveRavePayConfig config) : base(config)
+        public RaveCardCharge(RavePayConfig config) : base(config)
         {
         }
 
-        public override async Task<RaveApiResponse<AccounResponseData>> Charge(IChargeParams chargeParams, bool isRecurring = false)
+        public override async Task<RaveApiResponse<CardResponseData>> Charge(IChargeParams chargeParams, bool isRecurring = false)
         {
             var encryptedKey = PaymentDataEncryption.GetEncryptionKey(Config.SecretKey);
             var encryptedData = PaymentDataEncryption.EncryptData(encryptedKey, JsonConvert.SerializeObject(chargeParams));
-            var sampleJson = JsonConvert.SerializeObject(chargeParams);
 
             var content = new StringContent(JsonConvert.SerializeObject(new { PBFPubKey = chargeParams.PbfPubKey, client = encryptedData, alg = "3DES-24" }), Encoding.UTF8, "application/json");
 
@@ -28,7 +29,7 @@ namespace Flutterwave.Ravepay.Net.Payments
             return result;
         }
 
-        public override async Task<RaveApiResponse<AccounResponseData>> ValidateCharge(IValidateChargeParams chargeParams, bool isRecurring = false)
+        public override async Task<RaveApiResponse<CardResponseData>> ValidateCharge(IValidateChargeParams chargeParams, bool isRecurring = false)
         {
             var requestBody = new StringContent(JsonConvert.SerializeObject(chargeParams), Encoding.UTF8,
                 "application/json");

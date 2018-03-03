@@ -6,6 +6,23 @@ namespace Flutterwave.Ravepay.Net.Payments
 {
     public class Card
     {
+        public Card(string cardNo, string expirymonth, string expiryyear, string cvv)
+        {
+            CardNo = cardNo;
+            Expirymonth = expirymonth;
+            Expiryyear = expiryyear;
+            Cvv = cvv;
+        }
+
+        public Card(string cardNo, string expirymonth, string expiryyear, string cvv, string pin)
+        {
+            CardNo = cardNo;
+            Expirymonth = expirymonth;
+            Expiryyear = expiryyear;
+            Cvv = cvv;
+            Pin = pin;
+        }
+
         public string CardNo { get; set; }
         public string Expirymonth { get; set; }
         public  string Expiryyear { get; set; }

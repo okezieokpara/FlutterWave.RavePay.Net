@@ -13,7 +13,7 @@ namespace Flutterwave.Ravepay.Net
     {
         protected RavePayApiRequestBase()
         {
-            Config = new FlutterWaveRavePayConfig(false);
+            Config = new RavePayConfig(false);
             HttpClient = new HttpClient()
             {
                 BaseAddress = Config.IsLive
@@ -24,7 +24,7 @@ namespace Flutterwave.Ravepay.Net
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        protected RavePayApiRequestBase(FlutterWaveRavePayConfig config)
+        protected RavePayApiRequestBase(RavePayConfig config)
         {
             Config = config;
             HttpClient = new HttpClient()
@@ -37,7 +37,7 @@ namespace Flutterwave.Ravepay.Net
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         public HttpClient HttpClient { get; }
-        public FlutterWaveRavePayConfig Config { get; set; }
+        public RavePayConfig Config { get; set; }
 
         public virtual async Task<T1> Request(HttpRequestMessage requestBody)
         {

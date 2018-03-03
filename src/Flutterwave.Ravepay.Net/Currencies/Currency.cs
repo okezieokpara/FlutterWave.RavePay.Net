@@ -1,6 +1,6 @@
 ﻿namespace Flutterwave.Ravepay.Net.Currencies
 {
-    public enum CurrencyType { Dollar, Naira, Euro, Pounds, Cedi };
+    public enum CurrencyType { Dollar, Naira, Euro, Pounds, Cedi, KenyanShilling };
 
     public class Currency
     {
@@ -22,7 +22,9 @@
                 case CurrencyType.Naira:
                     return "NGN";
                 case CurrencyType.Cedi:
-                    return "CDI";
+                    return "GHS";
+                case CurrencyType.KenyanShilling:
+                    return "KES";
                 default:
                     return "NGN";
             }

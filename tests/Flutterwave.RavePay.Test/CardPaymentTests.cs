@@ -10,29 +10,30 @@ namespace Flutterwave.RavePay.Test
     [TestClass]
     public class CardPaymentTests
     {
-        private static string publicKey = ConfigurationSettings.AppSettings.Get("publicKey");
-        private static string secretKey = ConfigurationSettings.AppSettings.Get("secretKey");
-        private static string tranxRef = "4569";
+        private static string recurringPbKey = ConfigurationSettings.AppSettings.Get("recurringPbKey");
+        private static string recurringScKey = ConfigurationSettings.AppSettings.Get("recurringScKey");
+        private static string tranxRef = "454839";
         [TestMethod]
         public void CardPaymentTest()
         {
             // Arrange
 
 
+            var raveConfig = new RavePayConfig(recurringPbKey, recurringScKey, false);
+            var cardCharge = new RaveCardCharge(raveConfig);
 
-            var raveConfig = new FlutterWaveRavePayConfig(publicKey, secretKey, false);
-            var cardCharge = new CardCharge(raveConfig);
-
-            var cha = cardCharge.Charge(new CardChargeParams(publicKey, "Okezie", "Okpara", "okeziestanley@gmail.com",
-                    4556)
-            { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = tranxRef }).Result;
+            var cardParams = new CardChargeParams(recurringPbKey, "Okezie", "Okpara", "nokalara@mailinator.com",
+                4556) { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = tranxRef }
+            ;
+            var cha = cardCharge.Charge(cardParams).Result;
 
 
             if (cha.Message == "AUTH_SUGGESTION" && cha.Data.SuggestedAuth == "PIN")
             {
-                cha = cardCharge.Charge(new CardChargeParams(publicKey, "Apara", "Emmanuel", "okeziestanley@gmail.com",
-                        5000)
-                    { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = tranxRef, Pin = "3310"}).Result;
+                cardParams.Pin = "3310";
+                cardParams.Otp = "12345";
+                cardParams.SuggestedAuth = "PIN";
+                cha = cardCharge.Charge(cardParams).Result;
             }
 
 
@@ -43,9 +44,9 @@ namespace Flutterwave.RavePay.Test
         }
         public static void ValidateCardCharge(string txRef)
         {
-            var raveConfig = new FlutterWaveRavePayConfig(publicKey, secretKey, false);
-            var cardCharge = new CardCharge(raveConfig);
-            var val = cardCharge.ValidateCharge(new CardValidateChargeParams(publicKey, txRef, "12345")).Result;
+            var raveConfig = new RavePayConfig(recurringPbKey, recurringScKey, false);
+            var cardCharge = new RaveCardCharge(raveConfig);
+            var val = cardCharge.ValidateCharge(new CardValidateChargeParams(recurringPbKey, txRef, "12345")).Result;
 
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");

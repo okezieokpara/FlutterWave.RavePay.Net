@@ -6,7 +6,8 @@ using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net
 {
-   public class RaveApiResponse<T> where T: PayResponseData
+    
+   public class RaveApiResponse<T> where T: class 
     {
         [JsonProperty("status")]
         public string Status { get; set; }

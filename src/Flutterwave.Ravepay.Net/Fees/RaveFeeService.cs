@@ -10,7 +10,7 @@ namespace Flutterwave.Ravepay.Net
     public static class RaveFeeService
     {
         private static readonly RavePayApiRequest<RaveApiResponse<RaveFeesData>, RaveFeesData> ApiRequest =
-            new RavePayApiRequest<RaveApiResponse<RaveFeesData>, RaveFeesData>(new FlutterWaveRavePayConfig(false));
+            new RavePayApiRequest<RaveApiResponse<RaveFeesData>, RaveFeesData>(new RavePayConfig(false));
 
         public static async Task<RaveApiResponse<RaveFeesData>> GetFees(GetFeesParams feesParams)
         {

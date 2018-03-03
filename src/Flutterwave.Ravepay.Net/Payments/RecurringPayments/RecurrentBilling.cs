@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Flutterwave.Ravepay.Net.Reflection;
 using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net.Payments
@@ -10,7 +11,7 @@ namespace Flutterwave.Ravepay.Net.Payments
     public class RecurrentBilling
     {
 
-        public RecurrentBilling(FlutterWaveRavePayConfig config)
+        public RecurrentBilling(RavePayConfig config)
         {
             ApiRequest = new RavePayApiRequest<RaveApiResponse<RecuringBillingResponseData>, RecuringBillingResponseData>(config);
 
@@ -29,13 +30,12 @@ namespace Flutterwave.Ravepay.Net.Payments
             return result;
         }
 
-        public async Task<IEnumerable<RecuringBillingResponseData>> ListRecurrentBilling(RecurringParams recurringParams)
+        public async Task<RaveApiResponse<IEnumerable<RecuringBillingResponseData>>> ListRecurrentBilling(RecurringParams recurringParams)
         {
-            var httpMessage = new HttpRequestMessage(HttpMethod.Get, Enpoints.StopRecurring)
-            {
-                Content = new StringContent(JsonConvert.SerializeObject(recurringParams), Encoding.UTF8, "application/json")
-            };
-            var result = await ApiRequest.Request<IEnumerable<RecuringBillingResponseData>>(httpMessage);
+            var requestUrl = Enpoints.ListRecurring + ReflectionUtil.RequestQueryBuilder(recurringParams);
+            var httpMessage = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+           
+            var result = await ApiRequest.Request<RaveApiResponse<IEnumerable<RecuringBillingResponseData>>>(httpMessage);
             return result;
         }
 

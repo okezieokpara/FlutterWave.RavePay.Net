@@ -8,14 +8,14 @@ namespace Flutterwave.Ravepay.Net.Payments
 {
     public abstract class ChargeBase<T1, T2> : ICharge<T1, T2> where T1 : RaveApiResponse<T2>, new() where T2 : PayResponseData
     {
-        protected ChargeBase(FlutterWaveRavePayConfig config)
+        protected ChargeBase(RavePayConfig config)
         {
             Config = config;
             ApiRequest = new RavePayApiRequest<T1, T2>(config);
             PaymentDataEncryption = new RaveEncryption(); // Sets to the default encryption
         }
 
-        protected internal FlutterWaveRavePayConfig Config { get; }
+        protected internal RavePayConfig Config { get; }
         internal IRavePayApiRequest<T1, T2> ApiRequest { get; }
 
         public IPaymentDataEncryption PaymentDataEncryption { get; }
