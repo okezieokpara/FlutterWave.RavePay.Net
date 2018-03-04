@@ -64,8 +64,8 @@ namespace Flutterwave.RavePay.Test
         public void AccountChargeTest()
         {
             var acessBank = new Bank("ACCESS BANK NIGERIA", "044");
-            var raveConfig = new FlutterWaveRavePayConfig(publicKey, secretKey, false);
-            var accountCharge = new AccountCharge(raveConfig);
+            var raveConfig = new RavePayConfig(publicKey, secretKey, false);
+            var accountCharge = new RaveAccountCharge(raveConfig);
 
             var accountParams = new AccountChargeParams(publicKey, "Anonymous", "customer", "user@example.com", accessAcountNumber, 509, acessBank.BankCode, transRef);
             var chargeResponse = accountCharge.Charge(accountParams).Result;
@@ -77,14 +77,15 @@ namespace Flutterwave.RavePay.Test
                 chargeResponse = accountCharge.Charge(accountParams).Result;
             }
 
+            Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Instruction);
             Assert.IsNotNull(chargeResponse.Data);
             Assert.AreEqual("success", chargeResponse.Status);
             ValidateCardCharge(chargeResponse.Data.FlwRef);
         }
         public static void ValidateCardCharge(string txRef)
         {
-            var raveConfig = new FlutterWaveRavePayConfig(publicKey, secretKey, false);
-            var cardCharge = new AccountCharge(raveConfig);
+            var raveConfig = new RavePayConfig(publicKey, secretKey, false);
+            var cardCharge = new RaveAccountCharge(raveConfig);
             var val = cardCharge.ValidateCharge(new AccountValidateChargeParams(publicKey, txRef, sampleOtp)).Result;
 
             Trace.WriteLine($"Status: {val.Status}");

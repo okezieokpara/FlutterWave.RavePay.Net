@@ -9,13 +9,13 @@ namespace Flutterwave.Ravepay.Net
 {
    public class RaveTransaction
     {
-        public RaveTransaction(FlutterWaveRavePayConfig config)
+        public RaveTransaction(RavePayConfig config)
         {
             Config = config;
             ApiRequest = new RavePayApiRequest<RaveApiResponse<TransactionResponseData>, TransactionResponseData>(config);
         }
 
-        public FlutterWaveRavePayConfig Config { get; }
+        public RavePayConfig Config { get; }
         private IRavePayApiRequest<RaveApiResponse<TransactionResponseData>, TransactionResponseData> ApiRequest { get; }
 
         public async Task<RaveApiResponse<TransactionResponseData>> TransactionVerification(VerifyTransactoinParams verifyParams)
@@ -28,14 +28,15 @@ namespace Flutterwave.Ravepay.Net
             var result = await ApiRequest.Request(requestMessage);
             return result;
         }
-        public async Task<RaveApiResponse<TransactionResponseData>> XqueryTransactionVeriication(VerifyTransactoinParams verifyParams)
+        public async Task<IEnumerable<TransactionResponseData>> XqueryTransactionVeriication(VerifyTransactoinParams verifyParams)
         {
             var requestBody = new StringContent(JsonConvert.SerializeObject(verifyParams), Encoding.UTF8,
                 "application/json");
 
             var requestMessage =
                 new HttpRequestMessage(HttpMethod.Post, Enpoints.Xquery) { Content = requestBody };
-            var result = await ApiRequest.Request(requestMessage);
+
+            var result = await ApiRequest.Request<IEnumerable<TransactionResponseData>>(requestMessage);
             return result;
         }
 

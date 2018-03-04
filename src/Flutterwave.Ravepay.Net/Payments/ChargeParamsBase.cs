@@ -13,6 +13,8 @@ namespace Flutterwave.Ravepay.Net.Payments
             FirstName = firstName;
             LastName = lastName;
             Email = email;
+            Currency = "NGN";
+            Country = "NG";
         }
         
         [JsonProperty("PBFPubKey")]

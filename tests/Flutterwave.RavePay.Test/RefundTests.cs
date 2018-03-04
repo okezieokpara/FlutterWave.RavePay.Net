@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using Flutterwave.Ravepay.Net.Refunds;
+using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Flutterwave.RavePay.Test
@@ -8,9 +8,10 @@ namespace Flutterwave.RavePay.Test
     [TestClass]
     public class RefundTests
     {
-        private static string publicKey = ConfigurationSettings.AppSettings.Get("publicKey");
-        private static string secretKey = ConfigurationSettings.AppSettings.Get("secretKey");
-        private static string dummyTxRef = "FLW-MOCK-4844faec5b9a59fb835f3c5b73c2605f";
+        private static string _publicKey = ConfigurationSettings.AppSettings.Get("publicKey");
+        private static readonly string secretKey = ConfigurationSettings.AppSettings.Get("secretKey");
+        private const string dummyTxRef = "FLW-MOCK-4844faec5b9a59fb835f3c5b73c2605f";
+
 
         [TestMethod]
         public void MakeRefundTest()

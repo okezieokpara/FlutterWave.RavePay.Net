@@ -13,15 +13,16 @@ namespace Flutterwave.Ravepay.Net
     {
 
     }
+
     internal class RavePayApiRequest<T1, T2> : RavePayApiRequestBase<T1, T2> where T1 : RaveApiResponse<T2>, new() where T2 : PayResponseData
     {
         public RavePayApiRequest()
         {
-            Config = new FlutterWaveRavePayConfig(false);
+            Config = new RavePayConfig(false);
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        public RavePayApiRequest(FlutterWaveRavePayConfig config)
+        public RavePayApiRequest(RavePayConfig config)
         {
             Config = config;
             HttpClient.DefaultRequestHeaders.Accept.Clear();

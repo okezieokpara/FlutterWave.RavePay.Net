@@ -5,7 +5,7 @@ using Flutterwave.Ravepay.Net.Payments;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Flutterwave.Ravepay.Net.Refunds
+namespace Flutterwave.Ravepay.Net.Payments
 {
     public class RefundsResponseData : PayResponseData
     {

@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Net.Http;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Flutterwave.Ravepay.Net.Refunds
+namespace Flutterwave.Ravepay.Net.Payments
 {
     public static class RaveRefundService
     {
         private static readonly RavePayApiRequest<RaveApiResponse<RefundsResponseData>, RefundsResponseData> ApiRequest =
-            new RavePayApiRequest<RaveApiResponse<RefundsResponseData>, RefundsResponseData>(new FlutterWaveRavePayConfig(false));
+            new RavePayApiRequest<RaveApiResponse<RefundsResponseData>, RefundsResponseData>(new RavePayConfig(false));
 
         public static async Task<RaveApiResponse<RefundsResponseData>> MakeRefund(RaveRefundParams refundParams)
         {

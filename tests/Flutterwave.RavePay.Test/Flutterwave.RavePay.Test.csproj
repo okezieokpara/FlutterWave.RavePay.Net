@@ -4,7 +4,6 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -55,9 +54,13 @@
   <ItemGroup>
     <Compile Include="AccountPaymentTests.cs" />
     <Compile Include="CardPaymentTests.cs" />
+    <Compile Include="CurrencyTests.cs" />
     <Compile Include="FeesTest.cs" />
+    <Compile Include="PreauthorizeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecurringBilingTests.cs" />
     <Compile Include="RefundTests.cs" />
+    <Compile Include="TestConsts.cs" />
     <Compile Include="TransactionTests.cs" />
   </ItemGroup>
   <ItemGroup>

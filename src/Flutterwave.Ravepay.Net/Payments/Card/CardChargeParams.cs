@@ -67,6 +67,9 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("charge_type")]
         public string ChargeType { get; set; }
 
+        [JsonProperty("otp")]
+        public string Otp { get; set; }
+
        
     }
 }
