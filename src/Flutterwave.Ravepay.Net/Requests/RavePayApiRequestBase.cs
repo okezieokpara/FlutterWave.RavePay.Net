@@ -55,7 +55,6 @@ namespace Flutterwave.Ravepay.Net
             // Todo: If request fails find out the type of failure
             return response;
         }
-
         public async Task<T0> Request<T0>(HttpRequestMessage requestBody)
         {
             var httpResponse = await HttpClient.SendAsync(requestBody);

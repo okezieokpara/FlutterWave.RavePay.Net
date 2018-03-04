@@ -77,6 +77,7 @@ namespace Flutterwave.RavePay.Test
                 chargeResponse = accountCharge.Charge(accountParams).Result;
             }
 
+            Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Instruction);
             Assert.IsNotNull(chargeResponse.Data);
             Assert.AreEqual("success", chargeResponse.Status);
             ValidateCardCharge(chargeResponse.Data.FlwRef);

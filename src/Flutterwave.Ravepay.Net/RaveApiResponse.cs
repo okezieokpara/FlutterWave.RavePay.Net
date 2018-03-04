@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 using Flutterwave.Ravepay.Net.Payments;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Flutterwave.Ravepay.Net
 {
@@ -15,5 +17,11 @@ namespace Flutterwave.Ravepay.Net
         public string Message { get; set; }
         [JsonProperty("data")]
         public virtual T Data { get; set; }
+
+        [OnError]
+        internal void OnError(StreamingContext streamingContext, ErrorContext error)
+        {
+            error.Handled = true;
+        }
     }
 }

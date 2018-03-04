@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.Serialization;
 using System.Text;
 using  Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Flutterwave.Ravepay.Net.Payments
 {
@@ -44,5 +46,13 @@ namespace Flutterwave.Ravepay.Net.Payments
 
         [JsonProperty("customerId")]
         public long CustomerId { get; set; }
+
+
+        [JsonProperty("fraud_status")]
+        public string FraudStatus { get; set;  }
+
+        [JsonProperty("authurl")]
+        public string Authurl { get; set; }
+
     }
 }
