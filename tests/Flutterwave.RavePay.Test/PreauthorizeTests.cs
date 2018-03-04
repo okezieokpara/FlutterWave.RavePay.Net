@@ -4,7 +4,6 @@ using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-
 namespace Flutterwave.RavePay.Test
 {
     [TestClass]
@@ -36,7 +35,7 @@ namespace Flutterwave.RavePay.Test
             var preuthCard = new RavePreAuthCard(raveConfig);
             var captureResponse = preuthCard.Capture(successfulFwRef).Result;
 
-          //  Trace.WriteLine(JsonConvert.SerializeObject(captureResponse));
+          // Trace.WriteLine(JsonConvert.SerializeObject(captureResponse));
             Assert.IsNotNull(captureResponse.Data);
             Assert.AreEqual(captureResponse.Status, "success");
         }
