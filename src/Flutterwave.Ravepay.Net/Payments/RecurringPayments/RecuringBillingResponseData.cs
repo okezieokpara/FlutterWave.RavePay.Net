@@ -5,8 +5,6 @@ namespace Flutterwave.Ravepay.Net.Payments
 {
     public class RecuringBillingResponseData : PayResponseData
     {
-        [JsonProperty("id")]
-        public long Id { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }
