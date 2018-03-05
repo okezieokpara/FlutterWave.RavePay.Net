@@ -9,7 +9,6 @@ namespace Flutterwave.Ravepay.Net
     public class TransactionResponseData: PayResponseData
     {
 
-
         [JsonProperty("transaction_type")]
         public string TransactionType { get; set; }
 

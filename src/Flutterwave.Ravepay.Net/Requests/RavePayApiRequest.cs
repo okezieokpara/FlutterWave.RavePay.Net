@@ -14,7 +14,7 @@ namespace Flutterwave.Ravepay.Net
 
     }
 
-    internal class RavePayApiRequest<T1, T2> : RavePayApiRequestBase<T1, T2> where T1 : RaveApiResponse<T2>, new() where T2 : PayResponseData
+    internal class RavePayApiRequest<T1, T2> : RavePayApiRequestBase<T1, T2> where T1 : RaveApiResponse<T2>, new() where T2 : class
     {
         public RavePayApiRequest()
         {

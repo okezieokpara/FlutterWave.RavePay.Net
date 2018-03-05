@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +35,14 @@ namespace Flutterwave.RavePay.Test
             var trans = new RaveTransaction(config);
 
             var response = trans.XqueryTransactionVeriication(new VerifyTransactoinParams(secretKey, dummyTxRef)).Result;
+            Assert.IsInstanceOfType(response.Data, typeof(IEnumerable<TransactionResponseData>));
             Assert.IsNotNull(response);
+
+            foreach (var res in response.Data)
+            {
+                Trace.WriteLine($"{res.Status} \t {res.TransactionType}");
+            }
+
         }
     }
 }
