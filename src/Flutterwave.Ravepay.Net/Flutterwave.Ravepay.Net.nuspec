@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Flutterwave.Ravepay.Net</id>
+    <version>1.0.1-beta</version>
+    <title>Flutterwave.Ravepay.Net</title>
+    <authors>Okezie Okpara</authors>
+    <owners></owners>
+    <licenseUrl>https://github.com/okezieokpara/FlutterWave.RavePay.Net/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/okezieokpara/FlutterWave.RavePay.Net</projectUrl>
+    <iconUrl></iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET Library for Flutterwave RavePay</description>
+    <releaseNotes>This is an initial release of the Flutterwae RavePay .NET Library.</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Flutterwave, RavePay, .net</tags>
+  </metadata>
+</package>

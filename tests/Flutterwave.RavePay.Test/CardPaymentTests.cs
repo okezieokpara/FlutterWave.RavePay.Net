@@ -19,7 +19,7 @@ namespace Flutterwave.RavePay.Test
             // Arrange
 
 
-            var raveConfig = new RavePayConfig(recurringPbKey, recurringScKey, false);
+            var raveConfig = new RavePayConfig(recurringPbKey, false);
             var cardCharge = new RaveCardCharge(raveConfig);
 
             var cardParams = new CardChargeParams(recurringPbKey, "Okezie", "Okpara", "nokalara@mailinator.com",
