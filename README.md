@@ -1,7 +1,16 @@
 FlutterWave.RavePay.Net
 =======================
 
-A .NET library for Flutterwave Ravepay payment gateway
+A .NET library for Flutterwave Ravepay payment gateway. This library provides a
+wrapper to the [Flutterwave RavePay API
+​](https://flutterwavedevelopers.readme.io/doc)
+
+Get the package from
+[Nuget](https://www.nuget.org/packages/Flutterwave.Ravepay.Net/).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Install-Package	Flutterwave.Ravepay.Net -IncludePrerelease
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 <https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net/branch/mast>
 
@@ -66,10 +75,10 @@ a transaction, you need the `txRef` value and `otp `of that transaction. Here is
 an example:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        var raveConfig = new RavePayConfig(recurringPbKey, false);
-        var cardCharge = new RaveCardCharge(raveConfig);
-        var verifyResponse = await cardCharge.ValidateCharge(new CardValidateChargeParams(recurringPbKey, txRef, "12345"));
-        // You can now query the response message and status of the transaction
-         Trace.WriteLine($"Status: {verifyResponse.Status}");
-         Trace.WriteLine($"Message: {verifyResponse.Message}");
+var raveConfig = new RavePayConfig(recurringPbKey, false);
+var cardCharge = new RaveCardCharge(raveConfig);
+var verifyResponse = await cardCharge.ValidateCharge(new CardValidateChargeParams(recurringPbKey, txRef, "12345"));
+// You can now query the response message and status of the transaction
+Trace.WriteLine($"Status: {verifyResponse.Status}");
+Trace.WriteLine($"Message: {verifyResponse.Message}");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
