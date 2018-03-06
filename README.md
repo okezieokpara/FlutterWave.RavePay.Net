@@ -9,7 +9,7 @@ Get the package from
 [Nuget](https://www.nuget.org/packages/Flutterwave.Ravepay.Net/).
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Install-Package	Flutterwave.Ravepay.Net -IncludePrerelease
+Install-Package Flutterwave.Ravepay.Net -IncludePrerelease
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 <https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net/branch/mast>
@@ -27,8 +27,8 @@ The following services can be carried out with this library:
 ### Card Charge
 
 To successfully charge a user credit card, first make sure you have the
-`PBFPubKey `that you got from the checkout button on your RavePay dashboard.
-Then you use the `RaveCardCharge `class like so:
+`PBFPubKey`that you got from the checkout button on your RavePay dashboard. Then
+you use the `RaveCardCharge`class like so:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 var raveConfig = new RavePayConfig(<your-PBFPubKey>, false);
@@ -71,7 +71,7 @@ var chargeResponse = await cardCharge.Charge(cardParams);
 
 After each transaction it is a nice idea to validate the status of the
 transaction. For this purpose we will validate our last transaction. To validate
-a transaction, you need the `txRef` value and `otp `of that transaction. Here is
+a transaction, you need the `txRef` value and `otp`of that transaction. Here is
 an example:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -81,4 +81,36 @@ var verifyResponse = await cardCharge.ValidateCharge(new CardValidateChargeParam
 // You can now query the response message and status of the transaction
 Trace.WriteLine($"Status: {verifyResponse.Status}");
 Trace.WriteLine($"Message: {verifyResponse.Message}");
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Account Charge
+
+To successfully charge an account, first you need the account details.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//Setup the RavePay Config
+var raveConfig = new RavePayConfig(publicKey, false);
+            var accountCharge = new RaveAccountCharge(raveConfig);
+
+    var accountParams = new AccountChargeParams(publicKey, "Anonymous", "customer", "user@example.com", 0690000031, 509, acessBank.BankCode, <sample-txRef>);
+
+ var chargeResponse = await accountCharge.Charge(accountParams);
+// Now check the response recieved from the API. Especially the validation status
+ if (chargeResponse.Data.Status == "success-pending-validation")
+            {
+// This usually means the user needs to validate the transaction with an OTP
+}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Requests to the account charge endpoint usually instructs the user on the next
+steps to take to complete the transaction. You can find the instructions by
+check the `chargeResponse.Data.ValidateInstructions` property and displaying it
+to the user. The `AccountValidateInstructions `object holds the instructions you
+must display to the user. Here is an example response you will typically get:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Instruction);//"Please validate with the OTP sent to your mobile or email"
+    Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Valparams);// This is usually : ["OTP"]
+   Trace.WriteLine(chargeResponse.Data.ValidateInstruction); //"Please dial *901*4*1# to get your OTP. Enter the OTP gotten in the field below"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

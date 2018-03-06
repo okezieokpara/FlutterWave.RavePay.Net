@@ -64,10 +64,11 @@ namespace Flutterwave.RavePay.Test
         public void AccountChargeTest()
         {
             var acessBank = new Bank("ACCESS BANK NIGERIA", "044");
-            var raveConfig = new RavePayConfig(publicKey, secretKey, false);
+            var raveConfig = new RavePayConfig(publicKey, false);
             var accountCharge = new RaveAccountCharge(raveConfig);
 
             var accountParams = new AccountChargeParams(publicKey, "Anonymous", "customer", "user@example.com", accessAcountNumber, 509, acessBank.BankCode, transRef);
+
             var chargeResponse = accountCharge.Charge(accountParams).Result;
 
             if (chargeResponse.Data.Status == "success-pending-validation")
@@ -78,6 +79,8 @@ namespace Flutterwave.RavePay.Test
             }
 
             Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Instruction);
+            Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Valparams);
+            Trace.WriteLine(chargeResponse.Data.ValidateInstruction);
             Assert.IsNotNull(chargeResponse.Data);
             Assert.AreEqual("success", chargeResponse.Status);
             ValidateCardCharge(chargeResponse.Data.FlwRef);
