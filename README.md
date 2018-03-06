@@ -100,13 +100,12 @@ var raveConfig = new RavePayConfig(publicKey, false);
             {
 // This usually means the user needs to validate the transaction with an OTP
 }
-
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Requests to the account charge endpoint usually instructs the user on the next
 steps to take to complete the transaction. You can find the instructions by
 check the `chargeResponse.Data.ValidateInstructions` property and displaying it
-to the user. The `AccountValidateInstructions `object holds the instructions you
+to the user. The `AccountValidateInstructions`object holds the instructions you
 must display to the user. Here is an example response you will typically get:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -114,3 +113,17 @@ must display to the user. Here is an example response you will typically get:
     Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Valparams);// This is usually : ["OTP"]
    Trace.WriteLine(chargeResponse.Data.ValidateInstruction); //"Please dial *901*4*1# to get your OTP. Enter the OTP gotten in the field below"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can also validate an an account charge. You need the `txRef `value of the
+transaction you want to validate, you also need an OTP. Here is a sample:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   var raveConfig = new RavePayConfig(publicKey, secretKey, false);
+   var cardCharge = new RaveAccountCharge(raveConfig);
+   var val = await cardCharge.ValidateCharge(new AccountValidateChargeParams(publicKey, txRef, sampleOtp));
+// You can now check the response status
+    Trace.WriteLine($"Status: {val.Status}");
+    Trace.WriteLine($"Message: {val.Message}");
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
