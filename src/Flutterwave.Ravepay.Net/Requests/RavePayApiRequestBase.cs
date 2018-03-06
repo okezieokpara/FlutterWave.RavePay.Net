@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net
 {
-    internal abstract class RavePayApiRequestBase<T1, T2> : IRavePayApiRequest<T1, T2> where T1 : RaveApiResponse<T2>, new() where T2 : PayResponseData
+    internal abstract class RavePayApiRequestBase<T1, T2> : IRavePayApiRequest<T1, T2> where T1 : RaveApiResponse<T2>, new() where T2 : class 
     {
         protected RavePayApiRequestBase()
         {

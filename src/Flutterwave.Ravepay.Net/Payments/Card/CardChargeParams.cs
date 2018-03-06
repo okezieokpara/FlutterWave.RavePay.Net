@@ -11,6 +11,16 @@ namespace Flutterwave.Ravepay.Net.Payments
         {
             Amount = amount;
         }
+
+        public CardChargeParams(string pbfPubKey, string firstName, string lastName, string email, decimal amount, Card card) : base(pbfPubKey, firstName, lastName, email)
+        {
+            Amount = amount;
+            CardNo = card.CardNo;
+            Cvv = card.Cvv;
+            Expirymonth = card.Expirymonth;
+            Expiryyear = card.Expiryyear;
+            Pin = card.Pin;
+        }
         /// <summary>
         /// This is the number on the cardholders card. E.g. 5399 6701 2349 0229.
         /// </summary>

@@ -12,7 +12,5 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("authModelUsed")]
         public string AuthModelUsed { get; set; }
 
-        [JsonProperty("flwRef")]
-        public string FlwRef { get; set; }
     }
 }
