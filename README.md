@@ -148,6 +148,22 @@ foreach (var bank in banks)
        }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Fees([See doc](https://flutterwavedevelopers.readme.io/v1.0/reference#get-fees))
+--------------------------------------------------------------------------------
+
+The RavePay API allows you to get the fees associated with each payments. To get
+the fees, you use the `RaveFeeService `static class:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ var fees = await RaveFeeService.GetFees(new GetFeesParams(publicKey, 5938, CurrencyType.Naira));
+Trace.WriteLine(fees.Data.ChargeAmount); // The charge amount
+Trace.WriteLine(fees.Status) // Should be "success"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+
+ 
+
 Transaction Verification ([See doc](https://flutterwavedevelopers.readme.io/v1.0/reference#transaction-status-check))
 ---------------------------------------------------------------------------------------------------------------------
 
@@ -195,4 +211,55 @@ contains a list transaction details.
      {
         Trace.WriteLine($"{res.Status} \t {res.TransactionType}");
      }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Preauthorized Transaction
+-------------------------
+
+Preauthorized transactions allow merchants to preauthorize a card with a
+specific amount. This amount is reserved and the merchant can later `capture`,
+`void `or` refund` the amount. We use the `RavePreAuthCard `class to make
+preauthorize payments
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ var raveConfig = new RavePayConfig(<your-public-key>, <your-secret-key>, false);
+ var preuthCard = new RavePreAuthCard(raveConfig);
+
+ var card = new Card(<card-number>, <card-expiry-month>, <card-expiry-month>,
+                <card-cvv>);
+  var preauthResponse = await
+                preuthCard.Preauthorize(new PreauthorizeParams(raveConfig.PbfPubKey, "FirstName", "LastName",
+                    "user-email@email.com", 10000, card){TxRef = txRef });
+// Examine the response
+Trace.WriteLine(preauthResponse.Status); // Should be "success"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Preauthorize Capture
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ var raveConfig = new RavePayConfig(<your-public-key>, <your-secret-key>, false);
+ var preuthCard = new RavePreAuthCard(raveConfig);
+ var captureResponse = await preuthCard.Capture(<FwRef-of-successful-preauth-transaction>);
+ Trace.WriteLine(captureResponse.Status); // Should be "success"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Preauthorize Refund
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ var raveConfig = new RavePayConfig(<your-public-key>, <your-secret-key>, false);
+ var preuthCard = new RavePreAuthCard(raveConfig);
+ var captureResponse = await preuthCard.Refund(successfulFwRef);
+//Now read the response
+ Trace.WriteLine(captureResponse.Status); // Should be "success"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Preauthorize Void
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ var raveConfig = new RavePayConfig(<your-public-key>, <your-secret-key>, false);
+ var preuthCard = new RavePreAuthCard(raveConfig);
+ var captureResponse = await preuthCard.Void(unCapturedFwRef);
+ // Read the response
+ Trace.WriteLine(captureResponse.Status) // Should be "success"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
