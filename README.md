@@ -12,7 +12,7 @@ Get the package from
 Install-Package Flutterwave.Ravepay.Net -IncludePrerelease
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-<https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net/branch/mast>
+ 
 
 The following services can be carried out with this library:
 
