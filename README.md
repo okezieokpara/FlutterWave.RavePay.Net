@@ -114,7 +114,7 @@ must display to the user. Here is an example response you will typically get:
    Trace.WriteLine(chargeResponse.Data.ValidateInstruction); //"Please dial *901*4*1# to get your OTP. Enter the OTP gotten in the field below"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can also validate an an account charge. You need the `txRef `value of the
+You can also validate an an account charge. You need the `txRef`value of the
 transaction you want to validate, you also need an OTP. Here is a sample:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -126,4 +126,24 @@ transaction you want to validate, you also need an OTP. Here is a sample:
     Trace.WriteLine($"Message: {val.Message}");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- 
+Banks
+-----
+
+With the Flutterwave RavePay API, you can query the list of supported banks by
+using the `BankService`class:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var banks = await BankService.GetBankList();
+foreach (var bank in banks)
+       {
+           Trace.WriteLine(bank.ToString());
+            //Returns
+            //Bank name: ACCESS BANK NIGERIA 	 Bank Code: 044  InternetBanking: False
+            //Bank name: ECOBANK NIGERIA PLC 	 Bank Code: 050  InternetBanking: False
+            //Bank name: STERLING BANK PLC 	 Bank Code: 232  InternetBanking: False
+            // Bank name: ZENITH BANK PLC 	 Bank Code: 057  InternetBanking: False
+            // Bank name: FIRST CITY MONUMENT BANK PLC  Bank Code: 214  InternetBanking: False
+            // Bank name: SKYE BANK PLC 	 Bank Code: 076  InternetBanking: False
+            // Bank name: FSDH Merchant Bank Limited 	 Bank Code: 601  InternetBanking: False
+       }
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
