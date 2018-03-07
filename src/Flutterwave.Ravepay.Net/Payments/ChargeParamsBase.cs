@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net.Payments
 {
+    public enum AuthTypes {PIN, VBVSECURECODE, AVS_VBVSECURECODE }
+
     public abstract class ChargeParamsBase: IChargeParams
     {
         protected ChargeParamsBase(string pbfPubKey, string firstName, string lastName, string email)
@@ -17,6 +19,20 @@ namespace Flutterwave.Ravepay.Net.Payments
             Country = "NG";
         }
         
+        protected static string GetAuthType(AuthTypes authType)
+        {
+            switch (authType)
+            {
+                case AuthTypes.PIN:
+                    return "PIN";
+                case AuthTypes.VBVSECURECODE:
+                    return "VBVSECURECODE";
+                case AuthTypes.AVS_VBVSECURECODE:
+                    return "AVS_VBVSECURECODE";
+                default:
+                    return "PIN";
+            }
+        }
         [JsonProperty("PBFPubKey")]
         public string PbfPubKey { get; set; }
         /// <summary>
