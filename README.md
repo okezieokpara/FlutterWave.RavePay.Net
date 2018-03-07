@@ -22,9 +22,8 @@ The following services can be carried out with this library:
 
 3.  Transaction Validation
 
- 
-
-### Card Charge
+Card Charge
+-----------
 
 To successfully charge a user credit card, first make sure you have the
 `PBFPubKey`that you got from the checkout button on your RavePay dashboard. Then
@@ -83,7 +82,8 @@ Trace.WriteLine($"Status: {verifyResponse.Status}");
 Trace.WriteLine($"Message: {verifyResponse.Message}");
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Account Charge
+Account Charge
+--------------
 
 To successfully charge an account, first you need the account details.
 
@@ -92,7 +92,8 @@ To successfully charge an account, first you need the account details.
 var raveConfig = new RavePayConfig(publicKey, false);
             var accountCharge = new RaveAccountCharge(raveConfig);
 
-    var accountParams = new AccountChargeParams(publicKey, "Anonymous", "customer", "user@example.com", 0690000031, 509, acessBank.BankCode, <sample-txRef>);
+var accountParams = new AccountChargeParams(publicKey, "Anonymous", "customer", "user@example.com", 0690000031, 509,
+ acessBank.BankCode, <sample-txRef>);
 
  var chargeResponse = await accountCharge.Charge(accountParams);
 // Now check the response recieved from the API. Especially the validation status
@@ -109,9 +110,12 @@ to the user. The `AccountValidateInstructions`object holds the instructions you
 must display to the user. Here is an example response you will typically get:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Instruction);//"Please validate with the OTP sent to your mobile or email"
-    Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Valparams);// This is usually : ["OTP"]
-   Trace.WriteLine(chargeResponse.Data.ValidateInstruction); //"Please dial *901*4*1# to get your OTP. Enter the OTP gotten in the field below"
+Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Instruction);
+//"Please validate with the OTP sent to your mobile or email"
+Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Valparams);
+// This is usually : ["OTP"]
+Trace.WriteLine(chargeResponse.Data.ValidateInstruction); 
+//"Please dial *901*4*1# to get your OTP. Enter the OTP gotten in the field below"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can also validate an an account charge. You need the `txRef`value of the
