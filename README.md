@@ -16,11 +16,12 @@ Install-Package Flutterwave.Ravepay.Net -IncludePrerelease
 
 The following services can be carried out with this library:
 
-1.  Card Charge
-
-2.  Account Charge
-
-3.  Transaction Validation
+1.  [Card Charge](#card-charge)
+2.  [Account Charge](#account-charge)
+3.  [Banks](#banks)(#banks)
+4.  [Fees](#feessee-doc)
+5.  [Transaction Verification](#transaction-verification-see-doc)
+6.  [Preauthorized Transaction](#preauthorized-transaction)
 
 Card Charge
 -----------
