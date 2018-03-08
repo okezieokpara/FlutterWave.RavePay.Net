@@ -29,11 +29,23 @@ namespace Flutterwave.Ravepay.Net.Reflection
             return resultString;
         }
 
+        internal static string GetObjectPropValues(object inputObj, string propName)
+        {
+            var propValue = inputObj.GetType().GetProperty(propName).GetValue(inputObj, null);
+            if (IsValueType(propValue))
+            {
+                return propValue.ToString();
+
+            }
+
+            return ""; // Should throw exception in this case
+        }
         private static NameValueCollection GetAllJsonAttributes(object input)
         {
             var result = new NameValueCollection();
             var inputTypeInfo = input.GetType().GetTypeInfo();
-            var props = inputTypeInfo.DeclaredProperties;
+            var props = inputTypeInfo.GetProperties();
+
             foreach (var prop in props)
             {
                 object[] attrs = prop.GetCustomAttributes(true);
