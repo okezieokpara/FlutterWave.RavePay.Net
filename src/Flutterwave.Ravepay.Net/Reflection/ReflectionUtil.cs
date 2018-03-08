@@ -32,10 +32,10 @@ namespace Flutterwave.Ravepay.Net.Reflection
         internal static string GetObjectPropValues(object inputObj, string propName)
         {
             var propValue = inputObj.GetType().GetProperty(propName).GetValue(inputObj, null);
-            if (IsValueType(propValue))
+
+            if (IsValueType(propValue) && !IsDefaultValue(propValue))
             {
                 return propValue.ToString();
-
             }
 
             return ""; // Should throw exception in this case
@@ -55,7 +55,7 @@ namespace Flutterwave.Ravepay.Net.Reflection
                     {
                         var sttrValue = jsonProperty.PropertyName;
                         var value = prop.GetValue(input);
-                        if (IsValueType(value))
+                        if (IsValueType(value) && !IsDefaultValue(value))
                         {
                             result.Add(sttrValue, value.ToString());
                             // For now we can only serialize value types
@@ -67,6 +67,17 @@ namespace Flutterwave.Ravepay.Net.Reflection
             }
 
             return result;
+        }
+
+        private static bool IsDefaultValue(object value)
+        {
+            if (value.GetType().IsValueType)
+            {
+                var valDef = Activator.CreateInstance(value.GetType());
+                return value.Equals(valDef);
+            }
+
+            return value == null;
         }
 
         private static bool IsValueType(object obj)
