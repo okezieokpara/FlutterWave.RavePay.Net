@@ -1,17 +1,13 @@
-﻿using System;
-using System.Configuration;
-using System.Diagnostics;
-using Flutterwave.Ravepay.Net;
+﻿using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 
-namespace Flutterwave.RavePay.Test
+namespace Flutterwave.RavePay.TestCore
 {
     [TestClass]
     public class CardPaymentTests
     {
-        private static string recurringPbKey = ConfigurationSettings.AppSettings.Get("recurringPbKey");
-        private static string recurringScKey = ConfigurationSettings.AppSettings.Get("recurringScKey");
         private static string tranxRef = "454839";
         [TestMethod]
         public void CardPaymentTest()
@@ -19,11 +15,12 @@ namespace Flutterwave.RavePay.Test
             // Arrange
 
 
-            var raveConfig = new RavePayConfig(recurringPbKey, false);
+            var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey ,false);
             var cardCharge = new RaveCardCharge(raveConfig);
 
-            var cardParams = new CardChargeParams(recurringPbKey, "Okezie", "Okpara", "nokalara@mailinator.com",
-                4556) { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = tranxRef }
+            var cardParams = new CardChargeParams(TestConsts.recurringPbKey, "Okezie", "Okpara", "nokalara@mailinator.com",
+                4556)
+            { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = tranxRef }
             ;
             var cha = cardCharge.Charge(cardParams).Result;
 
@@ -44,9 +41,9 @@ namespace Flutterwave.RavePay.Test
         }
         public static void ValidateCardCharge(string txRef)
         {
-            var raveConfig = new RavePayConfig(recurringPbKey, recurringScKey, false);
+            var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey, false);
             var cardCharge = new RaveCardCharge(raveConfig);
-            var val = cardCharge.ValidateCharge(new CardValidateChargeParams(recurringPbKey, txRef, "12345")).Result;
+            var val = cardCharge.ValidateCharge(new CardValidateChargeParams(TestConsts.recurringPbKey, txRef, "12345")).Result;
 
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");

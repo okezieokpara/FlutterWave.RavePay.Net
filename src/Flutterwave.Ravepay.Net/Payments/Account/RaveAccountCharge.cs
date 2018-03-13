@@ -17,7 +17,7 @@ namespace Flutterwave.Ravepay.Net.Payments
         {
             var encryptedKey = PaymentDataEncryption.GetEncryptionKey(Config.SecretKey);
             var encryptedData = PaymentDataEncryption.EncryptData(encryptedKey, JsonConvert.SerializeObject(chargeParams));
-            var sampleJson = JsonConvert.SerializeObject(chargeParams);
+            //var sampleJson = JsonConvert.SerializeObject(chargeParams);
 
             var content = new StringContent(JsonConvert.SerializeObject(new { PBFPubKey = chargeParams.PbfPubKey, client = encryptedData, alg = "3DES-24" }), Encoding.UTF8, "application/json");
 

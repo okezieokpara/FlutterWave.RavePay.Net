@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1.0.2-beta</Version>
+    <Version>1.0.3-beta</Version>
     <Description>.NET Library for Flutterwave RavePay</Description>
     <Copyright>MIT</Copyright>
     <PackageProjectUrl>https://github.com/okezieokpara/FlutterWave.RavePay.Net</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/okezieokpara/FlutterWave.RavePay.Net/blob/master/LICENSE</PackageLicenseUrl>
     <RepositoryType></RepositoryType>
-    <PackageReleaseNotes>This is an initial release of the Flutterwae RavePay .NET Library</PackageReleaseNotes>
+    <PackageReleaseNotes>Now implementes check sum</PackageReleaseNotes>
     <PackageTags>Flutterwave, RavePay, .net</PackageTags>
     <RepositoryUrl>https://github.com/okezieokpara/FlutterWave.RavePay.Net</RepositoryUrl>
     <Authors>Okezie Okpara</Authors>

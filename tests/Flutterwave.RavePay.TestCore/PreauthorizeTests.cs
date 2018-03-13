@@ -1,10 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using Flutterwave.Ravepay.Net;
+﻿using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Flutterwave.RavePay.Test
+namespace Flutterwave.RavePay.TestCore
 {
     [TestClass]
     public class PreauthorizeTests
@@ -22,8 +23,9 @@ namespace Flutterwave.RavePay.Test
                 TestConsts.preauthCVV);
             var preauthResponse =
                 preuthCard.Preauthorize(new PreauthorizeParams(raveConfig.PbfPubKey, "Alara", "Nok",
-                    "nokalara@mailinator.com", 10000, card){TxRef = txRef }).Result;
-           // Trace.WriteLine(JsonConvert.SerializeObject(preauthResponse.Data));
+                    "nokalara@mailinator.com", 10000, card)
+                { TxRef = txRef }).Result;
+            // Trace.WriteLine(JsonConvert.SerializeObject(preauthResponse.Data));
             Assert.IsNotNull(preauthResponse.Data);
             Assert.AreEqual(preauthResponse.Status, "success");
 
@@ -35,7 +37,7 @@ namespace Flutterwave.RavePay.Test
             var preuthCard = new RavePreAuthCard(raveConfig);
             var captureResponse = preuthCard.Capture(successfulFwRef).Result;
 
-          // Trace.WriteLine(JsonConvert.SerializeObject(captureResponse));
+            // Trace.WriteLine(JsonConvert.SerializeObject(captureResponse));
             Assert.IsNotNull(captureResponse.Data);
             Assert.AreEqual(captureResponse.Status, "success");
         }
@@ -47,7 +49,7 @@ namespace Flutterwave.RavePay.Test
             var preuthCard = new RavePreAuthCard(raveConfig);
             var captureResponse = preuthCard.Refund(successfulFwRef).Result;
 
-           // Trace.WriteLine(JsonConvert.SerializeObject(captureResponse));
+            // Trace.WriteLine(JsonConvert.SerializeObject(captureResponse));
             Assert.IsNotNull(captureResponse.Data);
             Assert.AreEqual(captureResponse.Status, "success");
         }
@@ -59,7 +61,7 @@ namespace Flutterwave.RavePay.Test
             var preuthCard = new RavePreAuthCard(raveConfig);
             var captureResponse = preuthCard.Void(unCapturedFwRef).Result;
 
-          //  Trace.WriteLine(JsonConvert.SerializeObject(captureResponse));
+            //  Trace.WriteLine(JsonConvert.SerializeObject(captureResponse));
             Assert.IsNotNull(captureResponse.Data);
             Assert.AreEqual(captureResponse.Status, "success");
         }

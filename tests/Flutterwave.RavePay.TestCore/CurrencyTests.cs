@@ -1,9 +1,8 @@
-﻿using System;
-using Flutterwave.Ravepay.Net;
+﻿using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Currencies;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Flutterwave.RavePay.Test
+namespace Flutterwave.RavePay.TestCore
 {
     [TestClass]
     public class CurrencyTests
