@@ -8,6 +8,8 @@ wrapper to the [Flutterwave RavePay API
 Get the package from
 [Nuget](https://www.nuget.org/packages/Flutterwave.Ravepay.Net/).
 
+[![Build status](https://ci.appveyor.com/api/projects/status/yucwggjvtk3s8p9c?svg=true)](https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net)
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Install-Package Flutterwave.Ravepay.Net -IncludePrerelease
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
