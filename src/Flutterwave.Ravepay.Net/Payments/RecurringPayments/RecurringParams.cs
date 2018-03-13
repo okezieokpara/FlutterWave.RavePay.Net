@@ -16,7 +16,7 @@ namespace Flutterwave.Ravepay.Net.Payments
             TxId = teTxId;
         }
 
-        public RecurringParams(string seckey, int id)
+        public RecurringParams(string seckey, long id)
         {
             Id = id;
             Seckey = seckey;

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
-using Flutterwave.Ravepay.Net.Payments;
+﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace Flutterwave.Ravepay.Net
 {
-    
-   public class RaveApiResponse<T> where T: class 
+
+    public class RaveApiResponse<T> where T : class
     {
         [JsonProperty("status")]
         public string Status { get; set; }
@@ -21,7 +17,17 @@ namespace Flutterwave.Ravepay.Net
         [OnError]
         internal void OnError(StreamingContext streamingContext, ErrorContext error)
         {
+            if (error.Error is JsonSerializationException) //This tries to cover up for what I percieve to be a bug in the RavePay API
+            {
+                Data = default(T);
+                error.Handled = true;
+                return;
+            }
+#if DEBUG
+            error.Handled = false;
+#else
             error.Handled = true;
+#endif
         }
     }
 }
