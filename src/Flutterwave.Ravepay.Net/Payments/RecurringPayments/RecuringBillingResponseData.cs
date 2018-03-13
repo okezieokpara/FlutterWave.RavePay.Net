@@ -18,22 +18,22 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("status")]
         public string Status { get; set; }
 
-        [JsonProperty("next_due")]
+        [JsonProperty("next_due", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime NextDue { get; set; }
 
-        [JsonProperty("start")]
+        [JsonProperty("start", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime Start { get; set; }
 
-        [JsonProperty("stop")]
+        [JsonProperty("stop", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime Stop { get; set; }
 
-        [JsonProperty("createdAt")]
+        [JsonProperty("createdAt", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime CreatedAt { get; set; }
 
-        [JsonProperty("updatedAt")]
+        [JsonProperty("updatedAt", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime UpdatedAt { get; set; }
 
-        [JsonProperty("deletedAt")]
+        [JsonProperty("deletedAt", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime DeletedAt { get; set; }
 
         [JsonProperty("TransactionId")]

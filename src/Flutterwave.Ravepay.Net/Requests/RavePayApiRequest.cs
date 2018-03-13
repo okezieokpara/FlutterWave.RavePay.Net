@@ -29,26 +29,6 @@ namespace Flutterwave.Ravepay.Net
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public override async Task<T1> Request(HttpRequestMessage requestBody)
-        {
-            var httpResponse = await HttpClient.SendAsync(requestBody);
-            T1 response = null;
-            if (httpResponse.IsSuccessStatusCode)
-            {
-                response =
-                    JsonConvert.DeserializeObject<T1>(await httpResponse.Content.ReadAsStringAsync());
-            }
-            else
-            {
-                response = await ExamineFailedRespone(httpResponse);
-            }
-            // Todo: If request fails find out the type of failure
-            return response;
-        }
-
-        private static async Task<T1> ExamineFailedRespone(HttpResponseMessage httpResponse)
-        {
-            return JsonConvert.DeserializeObject<T1>(await httpResponse.Content.ReadAsStringAsync()); // Todo: This is a placeholder
-        }
+       
     }
 }
