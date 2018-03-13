@@ -1,24 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-using Flutterwave.Ravepay.Net.Payments;
+﻿using Flutterwave.Ravepay.Net.Payments;
 using Flutterwave.Ravepay.Net.Security;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text;
 
-namespace Flutterwave.RavePay.Test
+namespace Flutterwave.RavePay.TestCore
 {
     [TestClass]
     public class CheckSumTests
     {
-        [TestMethod]
-        public void NumberTests()
-        {
-            var testSrc = 394.9400;
-            var outPut = ((double) testSrc).ToString();
-
-            Trace.WriteLine(outPut);
-
-            Assert.AreEqual(outPut, "394.94");
-        }
         [TestMethod]
         public void CheckSumTest()
         {

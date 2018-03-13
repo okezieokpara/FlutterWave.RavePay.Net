@@ -14,7 +14,7 @@ namespace Flutterwave.Ravepay.Net
         protected RavePayApiRequestBase()
         {
             Config = new RavePayConfig(false);
-            HttpClient = new HttpClient()
+            HttpClient = new HttpClient
             {
                 BaseAddress = Config.IsLive
                     ? new Uri(FlutterwaveRavePayConsts.LiveUrl)

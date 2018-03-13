@@ -1,28 +1,17 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.Linq;
-using Flutterwave.Ravepay.Net;
+﻿using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Banks;
 using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace Flutterwave.RavePay.Test
+namespace Flutterwave.RavePay.TestCore
 {
-    /// <summary>
-    /// Summary description for AccountPaymentTests
-    /// </summary>
     [TestClass]
     public class AccountPaymentTests
     {
-        private static readonly string publicKey = ConfigurationSettings.AppSettings.Get("publicKey");
-        private static string secretKey = ConfigurationSettings.AppSettings.Get("secretKey");
-        private static string accessAcountNumber = ConfigurationSettings.AppSettings.Get("accountNumber");
-        private static string sampleOtp = ConfigurationSettings.AppSettings.Get("otp");
+       
         private static string transRef = "Ref105";
-        
 
         #region Additional test attributes
         //
@@ -64,17 +53,17 @@ namespace Flutterwave.RavePay.Test
         public void AccountChargeTest()
         {
             var acessBank = new Bank("ACCESS BANK NIGERIA", "044");
-            var raveConfig = new RavePayConfig(publicKey, false);
+            var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
             var accountCharge = new RaveAccountCharge(raveConfig);
 
-            var accountParams = new AccountChargeParams(publicKey, "Anonymous", "customer", "user@example.com", accessAcountNumber, 509, acessBank.BankCode, transRef);
+            var accountParams = new AccountChargeParams(TestConsts.publicKey, "Anonymous", "customer", "user@example.com", TestConsts.accessAccountNumber, 509, acessBank.BankCode, transRef);
 
             var chargeResponse = accountCharge.Charge(accountParams).Result;
 
             if (chargeResponse.Data.Status == "success-pending-validation")
             {
                 //If it asks for otp. Do request again
-                accountParams.Otp = sampleOtp;
+                accountParams.Otp = TestConsts.accessAccountOTP;
                 chargeResponse = accountCharge.Charge(accountParams).Result;
             }
 
@@ -83,13 +72,13 @@ namespace Flutterwave.RavePay.Test
             Trace.WriteLine(chargeResponse.Data.ValidateInstruction);
             Assert.IsNotNull(chargeResponse.Data);
             Assert.AreEqual("success", chargeResponse.Status);
-            ValidateCardCharge(chargeResponse.Data.FlwRef);
+            // ValidateCardCharge(chargeResponse.Data.FlwRef);
         }
         public static void ValidateCardCharge(string txRef)
         {
-            var raveConfig = new RavePayConfig(publicKey, secretKey, false);
+            var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
             var cardCharge = new RaveAccountCharge(raveConfig);
-            var val = cardCharge.ValidateCharge(new AccountValidateChargeParams(publicKey, txRef, sampleOtp)).Result;
+            var val = cardCharge.ValidateCharge(new AccountValidateChargeParams(TestConsts.publicKey, txRef, TestConsts.accessAccountOTP)).Result;
 
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");
