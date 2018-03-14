@@ -49,5 +49,28 @@ namespace Flutterwave.Ravepay.Net.Currencies
             };
             return await ApiRequest.Request(requestBody);
         }
+        /// <summary>
+        ///  Gets the exchange rate between two currencies
+        /// </summary>
+        /// <param name="originalCurrency">his is the currency object to convert from</param>
+        /// <param name="destCurrency">This is the currency object to convert to</param>
+        /// <param name="amount">This is the amount being converted, it is an optional field</param>
+        /// <returns>Response with data of exchange rate</returns>
+        public async Task<RaveApiResponse<ExchangeRateResponseData>> GetExchangeRate(Currency originalCurrency, Currency destCurrency, decimal amount)
+        {
+            var payload = new
+            {
+                SECKEY = Config.SecretKey,
+                origin_currency = originalCurrency.Code,
+                destination_currency = destCurrency.Code,
+                amount
+            };
+
+            var requestBody = new HttpRequestMessage(HttpMethod.Post, Enpoints.ExchangeRates)
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json")
+            };
+            return await ApiRequest.Request(requestBody);
+        }
     }
 }
