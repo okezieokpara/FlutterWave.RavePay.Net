@@ -4,6 +4,15 @@ before_build:
 - cmd: dotnet restore
 build:
   verbosity: minimal
+test_script:
+- OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"+[Flutterwave.RavePay.Test*]*" -output:".\coverage.xml" -oldstyle
+after_test:
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.xml" -t 162385b9-635f-41d1-bd79-3e142a215ec8
+
+
 deploy:
 - provider: NuGet
   api_key:
