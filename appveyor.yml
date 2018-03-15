@@ -7,6 +7,5 @@ before_build:
 build:
   verbosity: minimal
 test_script:
-- OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"+[Flutterwave.RavePay*]* - [Flutterwave.RavePay.TestCore*]*" -output:".\coverage.xml" -oldstyle
+- OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"+[Flutterwave.Ravepay.Net]* -[Flutterwave.RavePay.TestCore]*" -output:".\coverage.xml" -oldstyle
 - codecov -f "coverage.xml"
-
