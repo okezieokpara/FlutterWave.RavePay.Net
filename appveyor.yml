@@ -2,19 +2,10 @@ version: 1.0.{build}
 image: Visual Studio 2017
 before_build:
 - cmd: dotnet restore
+- cmd: choco install opencover.portable
+- cmd: choco install codecov
 build:
   verbosity: minimal
 test_script:
-- OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"+[Flutterwave.RavePay.Test*]*" -output:".\coverage.xml" -oldstyle
-after_test:
-  - ps: |
-      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
-      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
-      bash codecov.sh -f "coverage.xml" -t 162385b9-635f-41d1-bd79-3e142a215ec8
-
-
-deploy:
-- provider: NuGet
-  api_key:
-    secure: OUKtFU8CjEaiF4+4KAxEnMPWng0zMmT0Ymcn140iJVV7MmkSGzUhWy8JAJ6/3RlC
-  artifact: /.*\.nupkg/
+- OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:test -filter:"+[Flutterwave.Ravepay.Net]* -[Flutterwave.RavePay.TestCore]*" -output:".\coverage.xml" -oldstyle
+- codecov -f "coverage.xml"
