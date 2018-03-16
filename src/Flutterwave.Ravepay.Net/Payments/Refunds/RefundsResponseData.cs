@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Flutterwave.Ravepay.Net.Payments;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Flutterwave.Ravepay.Net.Payments
 {
