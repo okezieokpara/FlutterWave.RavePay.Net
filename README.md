@@ -8,7 +8,8 @@ wrapper to the [Flutterwave RavePay API
 Get the package from
 [Nuget](https://www.nuget.org/packages/Flutterwave.Ravepay.Net/).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/yucwggjvtk3s8p9c?svg=true)](https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net) [![codecov](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net/branch/master/graph/badge.svg)](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net)
+<https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net>
+<https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net>
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Install-Package Flutterwave.Ravepay.Net -IncludePrerelease
@@ -126,13 +127,14 @@ Trace.WriteLine(chargeResponse.Data.ValidateInstruction);
 //"Please dial *901*4*1# to get your OTP. Enter the OTP gotten in the field below"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can also validate an an account charge. You need the `txRef`value of the
-transaction you want to validate, you also need an OTP. Here is a sample:
+You can also validate an an account charge. You need the `flwRef` value that you
+recieved from the transaction you want to validate, you also need an OTP. Here
+is a sample:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    var raveConfig = new RavePayConfig(publicKey, secretKey, false);
    var cardCharge = new RaveAccountCharge(raveConfig);
-   var val = await cardCharge.ValidateCharge(new AccountValidateChargeParams(publicKey, txRef, sampleOtp));
+   var val = await cardCharge.ValidateCharge(new AccountValidateChargeParams(publicKey, flwRef, sampleOtp));
 // You can now check the response status
     Trace.WriteLine($"Status: {val.Status}");
     Trace.WriteLine($"Message: {val.Message}");
