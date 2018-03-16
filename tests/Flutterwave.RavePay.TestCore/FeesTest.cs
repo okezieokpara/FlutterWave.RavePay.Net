@@ -18,6 +18,8 @@ namespace Flutterwave.RavePay.TestCore
 
             Assert.IsNotNull(fees.Data);
             Assert.IsInstanceOfType(fees.Data.ChargeAmount, typeof(decimal));
+            Assert.IsNotNull(fees.Message);
+            Assert.IsNotNull(fees.Data.Fee);
             Assert.AreEqual(fees.Status, "success");
 
         }

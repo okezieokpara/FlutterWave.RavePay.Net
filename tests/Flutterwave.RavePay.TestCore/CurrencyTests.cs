@@ -16,6 +16,32 @@ namespace Flutterwave.RavePay.TestCore
 
             Assert.IsNotNull(res.Data);
             Assert.AreEqual(res.Status, "success");
+            Assert.AreEqual(res.Message, "Rate Fetched");
+
+        }
+        [TestMethod]
+        public void ExchangeRateTestDollarEuro()
+        {
+            var payConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
+            var currencyService = new RaveCurrencyService(payConfig);
+            var res = currencyService.GetExchangeRate(CurrencyType.Dollar, CurrencyType.Euro, 1000).Result;
+
+            Assert.IsNotNull(res.Data);
+            Assert.AreEqual(res.Status, "success");
+            Assert.AreEqual(res.Message, "Rate Fetched");
+
+        }
+
+        [TestMethod]
+        public void ExchangeRateTestPoundsEuro()
+        {
+            var payConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
+            var currencyService = new RaveCurrencyService(payConfig);
+            var res = currencyService.GetExchangeRate(CurrencyType.Pounds, CurrencyType.Euro, 500).Result;
+
+            Assert.IsNotNull(res.Data);
+            Assert.AreEqual(res.Status, "success");
+            Assert.AreEqual(res.Message, "Rate Fetched");
 
         }
     }

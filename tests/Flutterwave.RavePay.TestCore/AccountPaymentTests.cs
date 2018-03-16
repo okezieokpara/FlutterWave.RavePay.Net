@@ -10,8 +10,9 @@ namespace Flutterwave.RavePay.TestCore
     [TestClass]
     public class AccountPaymentTests
     {
-       
+
         private static string transRef = "Ref105";
+        private static string sampleSuccessfulFwRef = "ACHG-1521196019857";
 
         #region Additional test attributes
         //
@@ -74,16 +75,29 @@ namespace Flutterwave.RavePay.TestCore
             Assert.AreEqual("success", chargeResponse.Status);
             // ValidateCardCharge(chargeResponse.Data.FlwRef);
         }
-        public static void ValidateCardCharge(string txRef)
+
+        [TestMethod]
+        public void ValidateAccountChargeTest()
         {
             var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
             var cardCharge = new RaveAccountCharge(raveConfig);
-            var val = cardCharge.ValidateCharge(new AccountValidateChargeParams(TestConsts.publicKey, txRef, TestConsts.accessAccountOTP)).Result;
+            var val = cardCharge.ValidateCharge(new AccountValidateChargeParams(TestConsts.publicKey, sampleSuccessfulFwRef, TestConsts.accessAccountOTP)).Result;
 
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");
-            Assert.IsNotNull(val.Data);
-            Assert.AreEqual("success", val.Status);
+            if (val.Status == "error")
+            {
+                var desiredResponses = new List<string> { "Transaction already complete", "TRANSACTION ALREADY VERIFIED" }; // These are also accepted values depending on whether the transaction has be verified before
+                Assert.IsTrue(desiredResponses.Contains(val.Message));
+            }
+            else
+            {
+                Assert.IsNotNull(val.Data);
+                Assert.AreEqual("success", val.Status);
+                Assert.AreEqual("Charge Complete", val.Message);
+            }
+
+
 
         }
 

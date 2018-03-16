@@ -19,7 +19,7 @@ namespace Flutterwave.RavePay.TestCore
             var cardCharge = new RaveCardCharge(raveConfig);
 
             var cardParams = new CardChargeParams(TestConsts.recurringPbKey, "Okezie", "Okpara", "nokalara@mailinator.com",
-                4556)
+                3500)
             { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = tranxRef }
             ;
             var cha = cardCharge.Charge(cardParams).Result;

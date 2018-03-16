@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 namespace Flutterwave.Ravepay.Net.Payments
 {
     public enum RecurringIntervals { Daily, Weekly, Monthly, Quarterly, Bianually, Anually }
+
     public class RecurringParams
     {
         public RecurringParams(string seckey)
