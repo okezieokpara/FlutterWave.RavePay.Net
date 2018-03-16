@@ -1,4 +1,6 @@
-﻿using Flutterwave.Ravepay.Net;
+﻿using System.Diagnostics;
+using System.Linq;
+using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -10,6 +12,7 @@ namespace Flutterwave.RavePay.TestCore
     {
         private static string dummyTxRef = "FLW-MOCK-51bd3522815efdbd9018ae1ec1345fc4";
         private static string successfulPreauthTransx = "FLW-MOCK-110fc59d2d64cfb7bf0f99b8b1aeba5f";
+        private static string sampleTxId = "106625";
         private static long sampleRecurringId = 70777;
 
         [TestMethod]
@@ -41,13 +44,15 @@ namespace Flutterwave.RavePay.TestCore
         }
 
         [TestMethod]
-        public void ListRecurringMultipleBill()
+        public void ListRecurrinBillSingle()
         {
             var recurBilling = new RecurrentBilling(new RavePayConfig(false));
-            var list = recurBilling.ListRecurrentBilling(new RecurringParams(TestConsts.recurringScKey)).Result;
+            var list = recurBilling.ListRecurrentBilling(new RecurringParams(TestConsts.recurringScKey, sampleTxId)).Result;
+            Trace.WriteLine(list.Data.First().Tx.Id);
 
             Assert.AreEqual(list.Status, "success");
             Assert.IsNotNull(list.Data);
+            Assert.AreEqual(list.Data.Count(), 1);
         }
     }
 }

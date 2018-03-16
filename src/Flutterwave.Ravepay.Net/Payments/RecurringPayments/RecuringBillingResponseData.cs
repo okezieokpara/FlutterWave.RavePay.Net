@@ -38,5 +38,9 @@ namespace Flutterwave.Ravepay.Net.Payments
 
         [JsonProperty("TransactionId")]
         public long TransactionId { get; set; }
+
+        [JsonProperty("tx")]
+        public RecurringTransactionData Tx { get; set; }
     }
 }
+
