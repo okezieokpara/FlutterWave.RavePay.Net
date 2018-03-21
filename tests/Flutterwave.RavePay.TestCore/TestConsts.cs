@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
-using Flutterwave.Ravepay.Net.Banks;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Flutterwave.RavePay.TestCore
 {
@@ -42,7 +38,7 @@ namespace Flutterwave.RavePay.TestCore
 
         
         public static string accessAccountNumber = Config["TestAccounts:0:AccountNumber"];
-        public static string accessAccountOTP = Config["TestAccounts:0:12345"];
+        public static string accessAccountOTP = Config["TestAccounts:0:OTP"];
 
     }
 }

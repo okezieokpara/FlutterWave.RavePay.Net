@@ -97,8 +97,6 @@ namespace Flutterwave.RavePay.TestCore
                 Assert.AreEqual("Charge Complete", val.Message);
             }
 
-
-
         }
 
     }
