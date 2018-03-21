@@ -36,11 +36,18 @@ namespace Flutterwave.Ravepay.Net.Security
 
         private static string SanitizeNumbers(string inputStr)
         {
+            if (inputStr.StartsWith("0") && inputStr.Length == 2 && int.TryParse(inputStr.Substring(1, 1), out var o))
+            {
+                //This is a poor man's approach to checking if the string represents a card expiry
+                // First checks if the string starts with a zero
+                // Then checks if the string length is 2
+                // and then checks if second variable is an integer
+                // Todo just return as is
+                return inputStr;
+            }
             if (decimal.TryParse(inputStr, out var sample))
             {
-
-                var result = string.Format("{0:G29}", decimal.Parse(inputStr));
-                return result;
+                return string.Format("{0:G29}", decimal.Parse(inputStr));
             }
 
             return inputStr;
