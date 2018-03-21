@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GithubIssue21.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appSettings.json" />
   </ItemGroup>
 

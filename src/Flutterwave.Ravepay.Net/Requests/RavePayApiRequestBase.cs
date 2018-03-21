@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net
 {
-    internal abstract class RavePayApiRequestBase<T1, T2> : IRavePayApiRequest<T1, T2> where T1 : RaveApiResponse<T2>, new() where T2 : class 
+    internal abstract class RavePayApiRequestBase<T1, T2> : IRavePayApiRequest<T1, T2> where T1 : RaveApiResponse<T2>, new() where T2 : class
     {
         protected RavePayApiRequestBase()
         {
@@ -33,8 +33,8 @@ namespace Flutterwave.Ravepay.Net
             HttpClient.DefaultRequestHeaders.Accept.Clear();
             HttpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-        public HttpClient HttpClient { get; }
-        public RavePayConfig Config { get; set; }
+        protected HttpClient HttpClient { get; }
+        protected RavePayConfig Config { get; set; }
 
         public virtual async Task<T1> Request(HttpRequestMessage requestBody)
         {

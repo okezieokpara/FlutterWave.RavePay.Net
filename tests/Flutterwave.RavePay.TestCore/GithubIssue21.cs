@@ -12,12 +12,12 @@ namespace Flutterwave.RavePay.TestCore
         [TestMethod]
         public void GithubIssue21CardTest()
         {
-            var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey, true);
+            var raveConfig = new RavePayConfig("FLWPUBK-69dd4afe3cf6de390bf3c8f755244e24-X", "FLWSECK-d18452a2f01ad26305f7a2a5ffe24305-X", true);
             var cardCharge = new RaveCardCharge(raveConfig);
 
-            var cardParams = new CardChargeParams(TestConsts.recurringPbKey, "Okezie", "Okpara", "nokalara@mailinator.com",
+            var cardParams = new CardChargeParams("FLWPUBK-69dd4afe3cf6de390bf3c8f755244e24-X", "Okezie", "Okpara", "nokalara@mailinator.com",
                 3500)
-            { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = tranxRef }
+            { CardNo = "5399831125815419", Cvv = "892", Expirymonth = "04", Expiryyear = "19", TxRef = tranxRef }
             ;
             var cha = cardCharge.Charge(cardParams).Result;
 
