@@ -23,13 +23,13 @@ namespace Flutterwave.Ravepay.Net.Payments
             Seckey = seckey;
         }
 
-        public RecurringParams(long id, string seckey, string txId, RecurringIntervals interval)
-        {
-            Id = id;
-            Seckey = seckey;
-            TxId = txId;
-            ChargeType = GetRecurringInterval(interval);
-        }
+        //public RecurringParams(long id, string seckey, string txId, RecurringIntervals interval)
+        //{
+        //    Id = id;
+        //    Seckey = seckey;
+        //    TxId = txId;
+        //    ChargeType = GetRecurringInterval(interval);
+        //}
 
         [JsonProperty("id")]
         public long Id { get; set; }

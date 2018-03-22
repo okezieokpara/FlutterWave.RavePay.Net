@@ -44,5 +44,19 @@ namespace Flutterwave.RavePay.TestCore
             Assert.AreEqual(res.Message, "Rate Fetched");
 
         }
+        [TestMethod]
+        public void ExchangeRateTestNairaEuro()
+        {
+            var naira = new Currency("Naira", "NGN");
+            var pounds = new Currency("Pounds Sterling", CurrencyType.Pounds);
+            var payConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
+            var currencyService = new RaveCurrencyService(payConfig);
+            var res = currencyService.GetExchangeRate(pounds, naira, 2500).Result;
+
+            Assert.IsNotNull(res.Data);
+            Assert.AreEqual(res.Status, "success");
+            Assert.AreEqual(res.Message, "Rate Fetched");
+
+        }
     }
 }
