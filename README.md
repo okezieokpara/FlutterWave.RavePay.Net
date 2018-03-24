@@ -25,10 +25,11 @@ The following services can be carried out with this library:
 3.  [Banks](#banks)
 
 4.  [Fees](#feessee-doc)
+5.  [Currency](#currency)
 
-5.  [Transaction Verification](#transaction-verification-see-doc)
+6.  [Transaction Verification](#transaction-verification-see-doc)
 
-6.  [Preauthorized Transaction](#preauthorized-transaction)
+7.  [Preauthorized Transaction](#preauthorized-transaction)
 
 Card Charge
 -----------
@@ -171,6 +172,62 @@ the fees, you use the `RaveFeeService`static class:
  var fees = await RaveFeeService.GetFees(new GetFeesParams(publicKey, 5938, CurrencyType.Naira));
 Trace.WriteLine(fees.Data.ChargeAmount); // The charge amount
 Trace.WriteLine(fees.Status) // Should be "success"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Currency
+--------
+
+The Flutterwave currently supports multiple currencies including: Dollar, Naira,
+Euro, Pounds, Cedi, KenyanShilling.
+
+This API has a `Currency `class which represents a currency object and has two
+properties: `Name `i.e the name of the currency e.g Dollar and `code `i.e the
+three-letter currency code e.g NGN.
+
+You can either instantiate the directly or use a value from the `CurrencyType
+`enum like so:
+
+`var naira = new Currency("Naira", "NGN"); // Instatiates a currency object to
+naira`
+
+`var pounds = CurrencyType.Pounds // sets the currency using the` `CurrencyType
+enum`
+
+ 
+
+### Exchange rates ([See doc](https://flutterwavedevelopers.readme.io/v1.0/reference#ratesforexinput))
+
+With *RavePay API* you can check the exchange rate between two currencies. This
+library provides an easy way to query exchange rates via the
+`RaveCurrencyService `class. To use this, you will provide the source currency,
+the destination currency and the amount you want to exchange. For example:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ var payConfig = new RavePayConfig(<your-public-key>, <your-secret-key>, false);;
+ var currencyService = new RaveCurrencyService(payConfig);
+ var res = currencyService.GetExchangeRate(CurrencyType.Dollar, CurrencyType.Naira, 1000).Result;
+
+  // And you can query the result
+
+var data = res.Data // Contains the data returned from the API
+Trace.WriteLine(res.Status); // Should be "success"
+Trace.WriteLine(res.Message); // "Rate Fetched"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ var naira = new Currency("Naira", "NGN");
+ var pounds = new Currency("Pounds Sterling", CurrencyType.Pounds);
+ var payConfig = new RavePayConfig(<your-public-key>, <your-secret-key>, false);
+ var currencyService = new RaveCurrencyService(payConfig);
+ var res = currencyService.GetExchangeRate(pounds, naira, 2500).Result;
+
+  // And you can query the result
+
+var data = res.Data // Contains the data returned from the API
+Trace.WriteLine(res.Status); // Should be "success"
+Trace.WriteLine(res.Message); // "Rate Fetched"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  
