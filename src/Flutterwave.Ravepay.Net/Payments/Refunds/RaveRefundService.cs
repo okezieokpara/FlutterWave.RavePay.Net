@@ -1,11 +1,13 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net.Payments
 {
+    /// <summary>
+    /// The RaveRefundService is used to perform refund operations
+    /// </summary>
     public static class RaveRefundService
     {
         private static readonly RavePayApiRequest<RaveApiResponse<RefundsResponseData>, RefundsResponseData> ApiRequest =
