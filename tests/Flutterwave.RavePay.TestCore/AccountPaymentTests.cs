@@ -80,8 +80,8 @@ namespace Flutterwave.RavePay.TestCore
         public void ValidateAccountChargeTest()
         {
             var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
-            var cardCharge = new RaveAccountCharge(raveConfig);
-            var val = cardCharge.ValidateCharge(new AccountValidateChargeParams(TestConsts.publicKey, sampleSuccessfulFwRef, TestConsts.accessAccountOTP)).Result;
+            var accountValidate = new RaveAccountChargeValidation(raveConfig);
+            var val = accountValidate.ValidateCharge(new AccountValidateChargeParams(TestConsts.publicKey, sampleSuccessfulFwRef, TestConsts.accessAccountOTP)).Result;
 
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");

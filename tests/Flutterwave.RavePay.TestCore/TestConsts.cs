@@ -28,7 +28,6 @@ namespace Flutterwave.RavePay.TestCore
 
 
 
-
         public static string preauthCardNo = Config["TestCards:PreAuthCard:CardNo"];
         public static string preauthCVV = Config["TestCards:PreAuthCard:CVV"];
         public static string preAuthExpiryMonth = Config["TestCards:PreAuthCard:ExpiryMonth"];
@@ -39,6 +38,7 @@ namespace Flutterwave.RavePay.TestCore
         
         public static string accessAccountNumber = Config["TestAccounts:0:AccountNumber"];
         public static string accessAccountOTP = Config["TestAccounts:0:OTP"];
+
 
     }
 }

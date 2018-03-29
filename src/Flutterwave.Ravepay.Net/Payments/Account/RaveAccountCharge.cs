@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -28,15 +26,6 @@ namespace Flutterwave.Ravepay.Net.Payments
             return result;
         }
 
-        public override async Task<RaveApiResponse<AccounResponseData>> ValidateCharge(IValidateChargeParams chargeParams, bool isRecurring = false)
-        {
-            var requestBody = new StringContent(JsonConvert.SerializeObject(chargeParams), Encoding.UTF8,
-                "application/json");
-
-            var requestMessage =
-                new HttpRequestMessage(HttpMethod.Post, Enpoints.ValidateCharge) {Content = requestBody};
-            var result = await ApiRequest.Request(requestMessage);
-            return result;
-        }
+        
     }
 }

@@ -15,7 +15,7 @@ namespace Flutterwave.RavePay.TestCore
             // Arrange
 
 
-            var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey ,false);
+            var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey, false);
             var cardCharge = new RaveCardCharge(raveConfig);
 
             var cardParams = new CardChargeParams(TestConsts.recurringPbKey, "Okezie", "Okpara", "nokalara@mailinator.com",
@@ -42,13 +42,16 @@ namespace Flutterwave.RavePay.TestCore
         public static void ValidateCardCharge(string txRef)
         {
             var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey, false);
-            var cardCharge = new RaveCardCharge(raveConfig);
-            var val = cardCharge.ValidateCharge(new CardValidateChargeParams(TestConsts.recurringPbKey, txRef, "12345")).Result;
+            var cardValidation = new RaveCardChargeValidation(raveConfig);
+            var val = cardValidation.ValidateCharge(new CardValidateChargeParams(TestConsts.recurringPbKey, txRef, "12345")).Result;
 
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");
             Assert.IsNotNull(val.Data);
+            Trace.WriteLine($"Message: {val.Data.CardChargeToken.EmbedToken}");
             Assert.AreEqual("success", val.Status);
+            Assert.IsFalse(string.IsNullOrEmpty(val.Data.CardChargeToken.EmbedToken));
+            Assert.IsFalse(string.IsNullOrEmpty(val.Data.CardChargeToken.UserToken));
 
         }
     }

@@ -8,7 +8,6 @@ namespace Flutterwave.Ravepay.Net.Payments
 
         IPaymentDataEncryption PaymentDataEncryption { get; }
         Task<T1> Charge(IChargeParams chargeParams, bool isRecurring = false);
-        Task<T1> ValidateCharge(IValidateChargeParams validateChargeParams, bool isRecurring = false);
 
     }
 }

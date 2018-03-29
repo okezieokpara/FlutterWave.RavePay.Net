@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Flutterwave.Ravepay.Net.Currencies;
 using Newtonsoft.Json;
 
 
@@ -23,21 +20,12 @@ namespace Flutterwave.Ravepay.Net.Payments
             var content = new StringContent(JsonConvert.SerializeObject(new { PBFPubKey = chargeParams.PbfPubKey, client = encryptedData, alg = "3DES-24" }), Encoding.UTF8, "application/json");
 
             var requestMessage = new HttpRequestMessage(HttpMethod.Post, Enpoints.CardCharge) { Content = content };
-            var result = await ApiRequest.Request(requestMessage); // Todo: Check endpoints
+            var result = await ApiRequest.Request(requestMessage);
 
             // try to get the auth mode used. expected values are: "PIN","VBVSECURECODE", "AVS_VBVSECURECODE"
             return result;
         }
 
-        public override async Task<RaveApiResponse<CardResponseData>> ValidateCharge(IValidateChargeParams chargeParams, bool isRecurring = false)
-        {
-            var requestBody = new StringContent(JsonConvert.SerializeObject(chargeParams), Encoding.UTF8,
-                "application/json");
-
-            var requestMessage =
-                new HttpRequestMessage(HttpMethod.Post, Enpoints.ValidateCharge) {Content = requestBody};
-            var result = await ApiRequest.Request(requestMessage);
-            return result;
-        }
+      
     }
 }
