@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace Flutterwave.Ravepay.Net
 {
@@ -15,7 +13,7 @@ namespace Flutterwave.Ravepay.Net
         public const string StopRecurring = "merchant/subscriptions/stop";
         public const string ListRecurring = "merchant/subscriptions/list";
         public const string ExchangeRates = "flwv3-pug/getpaidx/api/forex";
-        public const string TokenzeCharge = "flwv3-pug/getpaidx/api/tokenized/charge";
+        public const string TokenizeCharge = "flwv3-pug/getpaidx/api/tokenized/charge";
         public const string PreauthorizeCardCharge = "flwv3-pug/getpaidx/api/charge";
         public const string PreauthorizeCapture = "flwv3-pug/getpaidx/api/capture";
         public const string PreauthorizeReturnOrVoid = "flwv3-pug/getpaidx/api/refundorvoid";

@@ -1,6 +1,5 @@
 ﻿using Flutterwave.Ravepay.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -9,7 +8,6 @@ namespace Flutterwave.RavePay.TestCore
     [TestClass]
     public class TransactionTests
     {
-
  
         private static string dummyTxRef = "FLW-MOCK-7b5cb8c21a96e5c6da4f85914f5b3c14";
 

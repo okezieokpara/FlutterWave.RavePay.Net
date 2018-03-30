@@ -1,16 +1,15 @@
-﻿using System;
-using  Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net.Payments
 {
-    public abstract class PayResponseData
+    public class AccountValidateChargeResponseData: ValidateChargeResponseDataBase
     {
         [JsonProperty("amount")]
         public decimal Amount { get; set; }
         [JsonProperty("code")]
         public string Code { get; set; }
         [JsonProperty("message")]
-        public  string Message { get; set; }
+        public string Message { get; set; }
 
         [JsonProperty("txRef")]
         public string TxRef { get; set; }
@@ -22,7 +21,7 @@ namespace Flutterwave.Ravepay.Net.Payments
         public string OrderRef { get; set; }
 
         [JsonProperty("AccountId")]
-        public  long AccountId { get; set; }
+        public long AccountId { get; set; }
 
         [JsonProperty("charge_type")]
         public string ChargeType { get; set; }
@@ -44,24 +43,9 @@ namespace Flutterwave.Ravepay.Net.Payments
 
 
         [JsonProperty("fraud_status")]
-        public string FraudStatus { get; set;  }
+        public string FraudStatus { get; set; }
 
         [JsonProperty("authurl")]
         public string Authurl { get; set; }
-
-        [JsonProperty("is_live")]
-        public bool IsLive { get; set; }
-
-        [JsonProperty("createdAt", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime CreatedAt { get; set; }
-
-
-        [JsonProperty("updatedAt", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime UpdatedAt { get; set; }
-
-
-        [JsonProperty("deletedAt", NullValueHandling = NullValueHandling.Ignore)]
-        public  DateTime DeletedAt { get; set; }
-
     }
 }

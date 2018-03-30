@@ -8,13 +8,36 @@ wrapper to the [Flutterwave RavePay API
 Get the package from
 [Nuget](https://www.nuget.org/packages/Flutterwave.Ravepay.Net/).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/yucwggjvtk3s8p9c/branch/master?svg=true)](https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net/branch/master)  [![codecov](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net/branch/master/graph/badge.svg)](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net)
+[![Build status](https://ci.appveyor.com/api/projects/status/yucwggjvtk3s8p9c/branch/master?svg=true)](https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net/branch/master) [![codecov](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net/branch/master/graph/badge.svg)](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net)
+
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Install-Package Flutterwave.Ravepay.Net -IncludePrerelease
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- 
+###  Breaking changes
+
+The charge validation feature has been moved their different specialised classes
+`RaveAccountChargeValidation`and `RaveCardChargeValidation`
+
+And to they are used like so:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey, false);
+var cardValidation = new RaveCardChargeValidation(raveConfig);
+var val = cardValidation.ValidateCharge(new CardValidateChargeParams(TestConsts.recurringPbKey, txRef, "12345")).Result;
+// You can query their results now
+Trace.WriteLine($"Status: {val.Status}"); // Should be "success"
+Trace.WriteLine($"Message: {val.Message}");
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Also every card charge validation request now returns a token. This token can be
+used to charge the card subsequently without using the full card details.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Trace.WriteLine(val.Data.TX.CardChargeToken.EmbedToken));
+Trace.WriteLine(val.Data.TX.CardChargeToken.UserToken));
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following services can be carried out with this library:
 
@@ -25,11 +48,14 @@ The following services can be carried out with this library:
 3.  [Banks](#banks)
 
 4.  [Fees](#feessee-doc)
+
 5.  [Currency](#currency)
 
 6.  [Transaction Verification](#transaction-verification-see-doc)
 
 7.  [Preauthorized Transaction](#preauthorized-transaction)
+
+8.  Tokenized charge
 
 Card Charge
 -----------
@@ -180,17 +206,17 @@ Currency
 The Flutterwave currently supports multiple currencies including: Dollar, Naira,
 Euro, Pounds, Cedi, KenyanShilling.
 
-This API has a `Currency `class which represents a currency object and has two
-properties: `Name `i.e the name of the currency e.g Dollar and `code `i.e the
+This API has a `Currency`class which represents a currency object and has two
+properties: `Name`i.e the name of the currency e.g Dollar and `code`i.e the
 three-letter currency code e.g NGN.
 
-You can either instantiate the directly or use a value from the `CurrencyType
-`enum like so:
+You can either instantiate the directly or use a value from the
+`CurrencyType`enum like so:
 
 `var naira = new Currency("Naira", "NGN"); // Instatiates a currency object to
 naira`
 
-`var pounds = CurrencyType.Pounds // sets the currency using the` `CurrencyType
+`var pounds = CurrencyType.Pounds // sets the currency using the CurrencyType
 enum`
 
  
@@ -199,7 +225,7 @@ enum`
 
 With *RavePay API* you can check the exchange rate between two currencies. This
 library provides an easy way to query exchange rates via the
-`RaveCurrencyService `class. To use this, you will provide the source currency,
+`RaveCurrencyService`class. To use this, you will provide the source currency,
 the destination currency and the amount you want to exchange. For example:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -350,4 +376,45 @@ This requires your Public and secret key
                 Expiryyear = "19",
                 TxRef = <txref-value>
             }, <your-secret-key>);
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Tokenized charge
+----------------
+
+With Tokenized charge you can charge a card without re-entering the card details
+if you have charged the card before. When the validate a card charge can examine
+the response for its `CardChargeToken `property which is of type
+`RaveChargeToken `this contains two properties `EmbedToken `and `UserToken`. You
+should save this token and use it for subsequent charges to that card for that
+particular use. One important caveat is that the customer email should be same
+for subsequent charges to that card.
+
+Here is an example:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+var raveConfig = new RavePayConfig(<your-public-key>, <your-secret-key>);
+var tokenCharge = new RaveTokenCharge(raveConfig);
+
+var tokenChargeParams =
+                new RaveTokenChargeParams(<your-secret-key>, "Okezie", "Okpara", "customer@email.com", <unique-txRef>, 500)
+                {
+                    Token = embedToken, // This corressponds to the EmbedToken you got from an earlier charge
+                    Narration = "Pay him",
+                    Ip = getCurrentIpAddress()
+                };
+
+var response = tokenCharge.Charge(tokenChargeParams).Result;
+
+
+Trace.WriteLine(response.Status); // should be "success"
+Trace.WriteLine(response.Message); // should be "Charge success"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Every successful token charge request also return a new token that can be used
+for subsequent token charge. You can examine the `CardChargeToken `property of
+the Token charge response:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Trace.WriteLine(response.Data.CardChargeToken.EmbedToken);
+Trace.WriteLine(response.Data.CardChargeToken.UserToken);
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
