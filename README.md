@@ -8,9 +8,7 @@ wrapper to the [Flutterwave RavePay API
 Get the package from
 [Nuget](https://www.nuget.org/packages/Flutterwave.Ravepay.Net/).
 
-[![Build status](https://ci.appveyor.com/api/projects/status/yucwggjvtk3s8p9c/branch/master?svg=true)](https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net/branch/master)
-
-[![codecov](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net/branch/master/graph/badge.svg)](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net)
+[![Build status](https://ci.appveyor.com/api/projects/status/yucwggjvtk3s8p9c/branch/master?svg=true)](https://ci.appveyor.com/project/okezieokpara/flutterwave-ravepay-net/branch/master) [![codecov](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net/branch/master/graph/badge.svg)](https://codecov.io/gh/okezieokpara/FlutterWave.RavePay.Net)
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
