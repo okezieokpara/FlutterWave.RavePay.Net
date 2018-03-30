@@ -55,6 +55,9 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("paymentId")]
         public string PaymentId { get; set; }
 
+        [JsonProperty("is_error")]
+        public bool IsError { get; set; }
+
         /// <summary>
         /// Represents the token return for a succussful card charge.
         /// This is important as it is used to make future tokenized payment requests

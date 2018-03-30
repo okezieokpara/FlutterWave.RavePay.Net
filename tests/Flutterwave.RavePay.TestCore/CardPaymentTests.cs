@@ -48,10 +48,10 @@ namespace Flutterwave.RavePay.TestCore
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");
             Assert.IsNotNull(val.Data);
-            Trace.WriteLine($"Message: {val.Data.CardChargeToken.EmbedToken}");
+            Trace.WriteLine($"Message: {val.Data.TX.CardChargeToken.EmbedToken}");
             Assert.AreEqual("success", val.Status);
-            Assert.IsFalse(string.IsNullOrEmpty(val.Data.CardChargeToken.EmbedToken));
-            Assert.IsFalse(string.IsNullOrEmpty(val.Data.CardChargeToken.UserToken));
+            Assert.IsFalse(string.IsNullOrEmpty(val.Data.TX.CardChargeToken.EmbedToken));
+            Assert.IsFalse(string.IsNullOrEmpty(val.Data.TX.CardChargeToken.UserToken));
 
         }
     }

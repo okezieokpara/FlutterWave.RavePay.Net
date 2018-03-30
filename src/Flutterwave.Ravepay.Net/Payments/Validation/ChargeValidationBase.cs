@@ -19,18 +19,17 @@ namespace Flutterwave.Ravepay.Net.Payments
         protected internal RavePayConfig Config { get; }
         internal IRavePayApiRequest<RaveApiResponse<T>, T> ApiRequest { get; }
 
-        public async Task<RaveApiResponse<T>> ValidateCharge(IValidateChargeParams validateChargeParams)
+        public virtual async Task<RaveApiResponse<T>> ValidateCharge(IValidateChargeParams validateChargeParams)
         {
-
             var requestBody = new StringContent(JsonConvert.SerializeObject(validateChargeParams), Encoding.UTF8,
-                "application/json");
+               "application/json");
 
             var requestMessage =
                 new HttpRequestMessage(HttpMethod.Post, Enpoints.ValidateCharge) { Content = requestBody };
             var result = await ApiRequest.Request(requestMessage);
             return result;
         }
-
+    
 
     }
 }

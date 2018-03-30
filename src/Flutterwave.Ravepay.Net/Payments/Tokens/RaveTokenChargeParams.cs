@@ -7,13 +7,16 @@ namespace Flutterwave.Ravepay.Net.Payments
     /// </summary>
    public class RaveTokenChargeParams: IChargeParams
     {
-        public RaveTokenChargeParams(string firstName, string lastName, string email, string txRef, decimal amount)
+        public RaveTokenChargeParams(string secKey,string firstName, string lastName, string email, string txRef, decimal amount)
         {
+            Seckey = secKey;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
             TxRef = txRef;
             Amount = amount;
+            Country = "NG";
+            Currency = "NGN";
         }
         /// <summary>
         /// This is a unique key generated for each button created on Rave’s dashboard. It starts with a prefix FLWSECK and ends with suffix X.

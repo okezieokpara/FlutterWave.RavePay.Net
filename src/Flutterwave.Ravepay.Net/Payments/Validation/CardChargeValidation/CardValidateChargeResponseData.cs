@@ -1,6 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
-
+﻿using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net.Payments
 {
@@ -9,16 +7,11 @@ namespace Flutterwave.Ravepay.Net.Payments
     /// </summary>
     public class CardValidateChargeResponseData : ValidateChargeResponseDataBase
     {
-        /// <summary>
-        /// Represents the token return for a succussful card charge.
-        /// This is important as it is used to make future tokenized payment requests
-        /// </summary>
-        [JsonProperty("chargeToken")]
-        public RaveChargeToken CardChargeToken { get; set; }
+       
 
         [JsonProperty("tx")]
-        public PayResponseData TX { get; set; }
-        [JsonProperty("CardValidationData")]
+        public CardValidationTXData TX { get; set; }
+        [JsonProperty("data")]
         public CardValidationData Data { get; set; }
 
         public class CardValidationData
@@ -28,6 +21,15 @@ namespace Flutterwave.Ravepay.Net.Payments
 
             [JsonProperty("responsemessage")]
             public string Responsemessage { get; set; }
+        }
+        public class CardValidationTXData: PayResponseData
+        {
+            /// <summary>
+            /// Represents the token return for a succussful card charge.
+            /// This is important as it is used to make future tokenized payment requests
+            /// </summary>
+            [JsonProperty("chargeToken")]
+            public RaveChargeToken CardChargeToken { get; set; }
         }
     }
 }
