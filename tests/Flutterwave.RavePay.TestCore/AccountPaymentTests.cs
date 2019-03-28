@@ -37,10 +37,10 @@ namespace Flutterwave.RavePay.TestCore
         #endregion
 
         [TestMethod]
-        public void GetBanks() //Aka LordBanks
+        public void GetDebitBanks() //Aka LordBanks
         {
 
-            var banks = BankService.GetBankList().Result;
+            var banks = BankService.GetBankDebitDirectList().Result;
             foreach (var bank in banks)
             {
                 Trace.WriteLine(bank.ToString());
@@ -49,6 +49,15 @@ namespace Flutterwave.RavePay.TestCore
             Assert.IsInstanceOfType(banks, typeof(IEnumerable<Bank>));
 
         }
+
+
+        [TestMethod]
+        public void GetTransferbanks()
+        {
+            var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
+            var result = BankService.GetBankTransferList("NG", raveConfig);
+        }
+
 
         [TestMethod]
         public void AccountChargeTest()

@@ -19,7 +19,9 @@ namespace Flutterwave.Ravepay.Net
         public const string PreauthorizeReturnOrVoid = "flwv3-pug/getpaidx/api/refundorvoid";
 
 
-        public const string GetBankList =
+        public const string GetDirectBankDebitList =
             "flwv3-pug/getpaidx/api/flwpbf-banks.js?json=1";
+
+        public const string GetBankTransferList = "banks/";
     }
 }
