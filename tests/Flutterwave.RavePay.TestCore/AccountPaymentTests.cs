@@ -55,7 +55,10 @@ namespace Flutterwave.RavePay.TestCore
         public void GetTransferbanks()
         {
             var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
-            var result = BankService.GetBankTransferList("NG", raveConfig);
+            var result =  BankService.GetBankTransferList("NG", raveConfig).Result;
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RaveApiResponse<BankTransferListResponse>));
+            Assert.AreEqual("success", result.Status);
         }
 
 

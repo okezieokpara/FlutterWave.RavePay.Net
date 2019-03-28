@@ -22,6 +22,6 @@ namespace Flutterwave.Ravepay.Net
         public const string GetDirectBankDebitList =
             "flwv3-pug/getpaidx/api/flwpbf-banks.js?json=1";
 
-        public const string GetBankTransferList = "banks/";
+        public const string GetBankTransferList = "/v2/banks/";
     }
 }

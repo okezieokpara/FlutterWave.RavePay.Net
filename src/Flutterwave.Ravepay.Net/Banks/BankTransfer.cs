@@ -30,8 +30,11 @@ namespace Flutterwave.Ravepay.Net.Banks
     }
 
 
-    public class BankTransferListResponse : RaveApiResponse<List<BankTransfer>>
+    public class BankTransferListResponse 
     {
         public BankTransferToken Token { get; set; }
+        public List<BankTransfer> Banks { get; set; }
+        public string Status { get; set; }
+        public string Message { get; set; }
     }
 }
