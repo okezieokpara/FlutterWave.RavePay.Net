@@ -20,6 +20,11 @@ namespace Flutterwave.Ravepay.Net.Payments
             Expirymonth = card.Expirymonth;
             Expiryyear = card.Expiryyear;
             Pin = card.Pin;
+            BillingCity = card.BillingCity;
+            BillingAddress = card.BillingAddress;
+            BillingCountry = card.BillingCountry;
+            BillingState = card.BillingState;
+            BillingZip = card.BillingZip;
         }
         /// <summary>
         /// This is the number on the cardholders card. E.g. 5399 6701 2349 0229.
@@ -55,7 +60,7 @@ namespace Flutterwave.Ravepay.Net.Payments
         /// </summary>
         [JsonProperty("suggested_auth")]
         public string SuggestedAuth { get; set; }
-       
+
 
         /// <summary>
         /// 		
@@ -80,6 +85,34 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("otp")]
         public string Otp { get; set; }
 
-       
+        /// <summary>
+        /// This is the zip code or postal card registered with the card, customers can easily find this on their bank statement.
+        /// </summary>
+        [JsonProperty("billingzip")]
+        public string BillingZip { get; set; }
+
+        /// <summary>
+        /// This is the city registered with the card, it makes up part of the address the customer used for their card. Customers can easily find this on their bank statement.
+        /// </summary>
+        [JsonProperty("billingcity")]
+        public string BillingCity { get; set; }
+
+        /// <summary>
+        /// This is the house/building address registered with the card. Customers can easily find this on their bank statement.
+        /// </summary>
+        [JsonProperty("billingaddress")]
+        public string BillingAddress { get; set; }
+
+        /// <summary>
+        /// This is the state registered with the card. Customers can easily find this on their bank statement.
+        /// </summary>
+        [JsonProperty("billingstate")]
+        public string BillingState { get; set; }
+        /// <summary>
+        /// billingcountry
+        /// </summary>
+        [JsonProperty("billingcountry")]
+        public string BillingCountry { get; set; }
+
     }
 }

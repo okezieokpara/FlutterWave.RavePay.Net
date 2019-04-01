@@ -4,8 +4,7 @@ using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-
-namespace Flutterwave.RavePay.TestCore
+namespace Flutterwave.RavePay.TestCore.PaymentTests
 {
     [TestClass]
     public class RecurringBilingTests

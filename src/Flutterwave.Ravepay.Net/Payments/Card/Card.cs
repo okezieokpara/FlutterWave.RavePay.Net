@@ -25,8 +25,15 @@ namespace Flutterwave.Ravepay.Net.Payments
 
         public string CardNo { get; set; }
         public string Expirymonth { get; set; }
-        public  string Expiryyear { get; set; }
+        public string Expiryyear { get; set; }
         public string Cvv { get; set; }
         public string Pin { get; set; }
+        public string BillingZip { get; set; }
+        public string BillingCity { get; set; }
+        public  string BillingAddress { get; set; }
+        public  string BillingState { get; set; }
+
+        public  string BillingCountry { get; set; }
+
     }
 }

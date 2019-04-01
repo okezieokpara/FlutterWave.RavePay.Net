@@ -1,11 +1,11 @@
-﻿using Flutterwave.Ravepay.Net;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Banks;
 using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using System.Diagnostics;
 
-namespace Flutterwave.RavePay.TestCore
+namespace Flutterwave.RavePay.TestCore.PaymentTests
 {
     [TestClass]
     public class AccountPaymentTests

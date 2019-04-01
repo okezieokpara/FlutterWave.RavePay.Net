@@ -9,7 +9,7 @@ namespace Flutterwave.Ravepay.Net.Security
     {
         internal static string GenerateSHA256String(string inputString)
         {
-            SHA256 sha256 = SHA256Managed.Create();
+            SHA256 sha256 = SHA256.Create();
             byte[] bytes = Encoding.UTF8.GetBytes(inputString);
             byte[] hash = sha256.ComputeHash(bytes);
             return GetStringFromHash(hash);
@@ -17,7 +17,7 @@ namespace Flutterwave.Ravepay.Net.Security
 
         internal static string GenerateSHA512String(string inputString)
         {
-            SHA512 sha512 = SHA512Managed.Create();
+            SHA512 sha512 = SHA512.Create();
             byte[] bytes = Encoding.UTF8.GetBytes(inputString);
             byte[] hash = sha512.ComputeHash(bytes);
             return GetStringFromHash(hash);

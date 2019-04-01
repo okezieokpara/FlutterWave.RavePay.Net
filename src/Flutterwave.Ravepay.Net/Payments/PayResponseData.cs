@@ -30,11 +30,24 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("charged_amount")]
         public decimal ChargedAmount { get; set; }
 
+
+        /// <summary>
+        /// This is the response code of the transaction, it typically tells you when a transaction is successful with a response code 00 or when the transaction requires validation 02
+        /// </summary>
+        /// <remarks>This applies to international mastercard using 3D Secure</remarks>
+
         [JsonProperty("chargeResponseCode")]
         public string ChargeResponseCode { get; set; }
 
+        /// <summary>
+        /// This is the response message and it can be shown to the customer to show what needs to be done next.
+        /// </summary>
+        /// <remarks>This applies to international mastercard using 3D Secure</remarks>
         [JsonProperty("chargeResponseMessage")]
         public string ChargeResponseMessage { get; set; }
+
+        [JsonProperty("paymentType")]
+        public  string PaymentType { get; set; }
 
         [JsonProperty("flwRef")]
         public string FlwRef { get; set; }
