@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.Extensions.Configuration;
 
 namespace Flutterwave.RavePay.TestCore
 {
@@ -15,7 +16,7 @@ namespace Flutterwave.RavePay.TestCore
 
 
         public static string publicKey = Config["PaymentButtons:0:publicKey"];//ConfigurationSettings.AppSettings.Get("publicKey");
-        public static string secretKey = Config["PaymentButtons:0:secret"];
+        public static string secretKey = Environment.GetEnvironmentVariable("secret");
 
 
         public static string recurringPbKey = Config["PaymentButtons:1:publicKey"];
