@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Payments;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,11 +11,12 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
     public class CardPaymentTests
     {
         [TestMethod]
-        public void CardCharegLocalPin_Test()
+        public async Task CardCharegLocalPin_Test()
         {
             // Arrange
 
-            var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey, false);
+            var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
+
             var cardCharge = new RaveCardCharge(raveConfig);
 
             var cardParams = new CardChargeParams(TestConsts.recurringPbKey, TestConsts.customerFirstName, TestConsts.customerLastName, TestConsts.customerEmail,
@@ -23,7 +25,7 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
             ;
 
             // Act
-            var cha = cardCharge.Charge(cardParams).Result;
+            var cha = await cardCharge.Charge(cardParams);
 
 
             if (cha.Message == "AUTH_SUGGESTION" && cha.Data.SuggestedAuth == "PIN") // Some payment cards my require further authentication i.e pin and OTP
@@ -105,10 +107,10 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
                TestConsts.customerEmail,
                 3500)
             {
-                CardNo = TestConsts.testIntl3DCardNo,
-                Cvv = TestConsts.testIntl3DCVV,
-                Expirymonth = TestConsts.testIntl3DExpiryMonth,
-                Expiryyear = TestConsts.testIntl3DExpiryYear,
+                CardNo = TestConsts.testVisaIntlCardNo,
+                Cvv = TestConsts.testVisaIntlCardCVV,
+                Expirymonth = TestConsts.testVisaIntlExpiryMonth,
+                Expiryyear = TestConsts.testVisaIntlExpiryYear,
                 TxRef = Guid.NewGuid().ToString("N")
             };
 

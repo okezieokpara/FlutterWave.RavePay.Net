@@ -32,4 +32,9 @@
     <ProjectReference Include="..\..\src\Flutterwave.Ravepay.Net\Flutterwave.Ravepay.Net.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="PaymentPlanTests\" />
+    <Folder Include="TransferTests\" />
+  </ItemGroup>
+
 </Project>

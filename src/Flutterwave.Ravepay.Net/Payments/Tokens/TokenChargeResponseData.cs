@@ -48,9 +48,7 @@ namespace Flutterwave.Ravepay.Net.Payments
 
         [JsonProperty("acctvalrespcode")]
         public string AcctvalRespcode { get; set; }
-    
-        [JsonProperty("paymentType")]
-        public string PaymentType { get; set; }
+
 
         [JsonProperty("paymentId")]
         public string PaymentId { get; set; }

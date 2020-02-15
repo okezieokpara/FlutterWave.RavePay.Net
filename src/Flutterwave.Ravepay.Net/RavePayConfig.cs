@@ -11,8 +11,9 @@ namespace Flutterwave.Ravepay.Net
 
         /// <summary>
         /// Instansiate a new config object
+        /// This config contains your pub key and secret which will be used for all requests
         /// </summary>
-        /// <param name="publicKey">PBFPubKey</param>
+        /// <param name="publicKey">PBFPubKey or Publishable API keys</param>
         /// <param name="secretKey">This is a unique key generated for each button created on Rave’s dashboard. It starts with a prefix FLWSECK and ends with suffix X</param>
         /// <param name="isLive">Toogle Test and live. Default is false</param>
         public RavePayConfig(string publicKey, string secretKey, bool isLive)

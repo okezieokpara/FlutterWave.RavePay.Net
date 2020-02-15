@@ -9,8 +9,17 @@ using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net.Reflection
 {
+
+    /// <summary>
+    /// Internal tools that make us of reflection
+    /// </summary>
     internal static class ReflectionUtil
     {
+        /// <summary>
+        /// This takes in any object and creates a string that represents a url query string e.g ?color=red&height=500
+        /// </summary>
+        /// <param name="input">The object to be converted to url query string</param>
+        /// <returns></returns>
         internal static string RequestQueryBuilder(object input)
         {
             var serializedData = GetAllJsonAttributes(input);
@@ -28,7 +37,12 @@ namespace Flutterwave.Ravepay.Net.Reflection
             }
             return resultString;
         }
-
+        /// <summary>
+        /// Gets the value of a property from an object given the object and the property name
+        /// </summary>
+        /// <param name="inputObj">An object to search</param>
+        /// <param name="propName">The string representing the property name</param>
+        /// <returns></returns>
         internal static string GetObjectPropValues(object inputObj, string propName)
         {
             var propValue = inputObj.GetType().GetProperty(propName).GetValue(inputObj, null);

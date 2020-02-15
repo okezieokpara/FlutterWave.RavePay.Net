@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net.Payments
 {
@@ -62,8 +59,7 @@ namespace Flutterwave.Ravepay.Net.Payments
         public string SuggestedAuth { get; set; }
 
 
-        /// <summary>
-        /// 		
+        /// <summary> 		
         /// IP - Internet Protocol. This represents the current IP address of the customer carrying out the transaction.
         /// </summary>
         [JsonProperty("IP")]
@@ -109,10 +105,15 @@ namespace Flutterwave.Ravepay.Net.Payments
         [JsonProperty("billingstate")]
         public string BillingState { get; set; }
         /// <summary>
-        /// billingcountry
+        /// Billing country
         /// </summary>
         [JsonProperty("billingcountry")]
         public string BillingCountry { get; set; }
 
+        /// <summary>
+        /// Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        /// </summary>
+        [JsonProperty("meta")]
+        public PaymentMetaData[] Meta { get; set; }
     }
 }

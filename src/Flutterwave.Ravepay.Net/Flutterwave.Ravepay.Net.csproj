@@ -61,6 +61,11 @@ Trace.WriteLine(val.Data.TX.CardChargeToken.UserToken));
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Flutterwave.Ravepay.Net.csproj.DotSettings" />
+    <None Remove="Flutterwave.Ravepay.Net.nuspec" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
     <PackageReference Include="OpenCover" Version="4.6.519" />
   </ItemGroup>

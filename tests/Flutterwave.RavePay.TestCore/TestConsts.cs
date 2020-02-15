@@ -62,7 +62,7 @@ namespace Flutterwave.RavePay.TestCore
         public static string preauthPin = Config["TestCards:PreAuthCard:Pin"];
         public static string preAuthOtp = Config["TestCards:PreAuthCard:OTP"];
 
-        
+
         public static string accessAccountNumber = Config["TestAccounts:0:AccountNumber"];
         public static string accessAccountOTP = Config["TestAccounts:0:OTP"];
 
