@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -13,6 +14,10 @@ namespace Flutterwave.Ravepay.Net.Payments
 
         public override async Task<RaveApiResponse<AccounResponseData>> Charge(IChargeParams chargeParams, bool isRecurring = false)
         {
+            if (Config.PbfPubKey != chargeParams.PbfPubKey)
+            {
+                throw new ArgumentException("There is an issue with the public key provided. Please check that the public keys are consistent");
+            }
             var encryptedKey = PaymentDataEncryption.GetEncryptionKey(Config.SecretKey);
             var encryptedData = PaymentDataEncryption.EncryptData(encryptedKey, JsonConvert.SerializeObject(chargeParams));
             //var sampleJson = JsonConvert.SerializeObject(chargeParams);
@@ -26,6 +31,6 @@ namespace Flutterwave.Ravepay.Net.Payments
             return result;
         }
 
-        
+
     }
 }

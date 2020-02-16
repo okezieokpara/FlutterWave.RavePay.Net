@@ -19,7 +19,7 @@ namespace Flutterwave.Ravepay.Net.Banks
         /// </summary>
         /// <returns>The bank transfer list.</returns>
         /// <param name="country">The Country To Get Bank List From Within Africa ex NG,GH,KE,UG,TZ.</param>
-        public static async Task<RaveApiResponse<BankTransferListResponse>> GetBankTransferList(string country,RavePayConfig config)
+        public static async Task<RaveApiResponse<BankTransferListResponse>> GetBankTransferList(string country, RavePayConfig config)
         {
             var requestMessage = new HttpRequestMessage(HttpMethod.Get, $"{Enpoints.GetBankTransferList}{country}?public_key={config.PbfPubKey}");
             return await RavePayRequest.Request<RaveApiResponse<BankTransferListResponse>>(requestMessage);

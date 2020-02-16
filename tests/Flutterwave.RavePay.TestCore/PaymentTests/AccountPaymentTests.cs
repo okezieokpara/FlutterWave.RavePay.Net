@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Banks;
 using Flutterwave.Ravepay.Net.Payments;
@@ -14,33 +18,11 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
         private static string transRef = "Ref105";
         private static string sampleSuccessfulFwRef = "ACHG-1521196019857";
 
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
-
         [TestMethod]
-        public void GetDebitBanks() //Aka LordBanks
+        public async Task GetDebitBanks() //Aka LordBanks
         {
 
-            var banks = BankService.GetBankDebitDirectList().Result;
+            var banks = await BankService.GetBankDebitDirectList();
             foreach (var bank in banks)
             {
                 Trace.WriteLine(bank.ToString());
@@ -52,10 +34,10 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
 
 
         [TestMethod]
-        public void GetTransferbanks()
+        public async Task GetTransferbanks()
         {
             var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
-            var result =  BankService.GetBankTransferList("NG", raveConfig).Result;
+            var result = await BankService.GetBankTransferList("NG", raveConfig);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(RaveApiResponse<BankTransferListResponse>));
             Assert.AreEqual("success", result.Status);
@@ -63,37 +45,45 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
 
 
         [TestMethod]
-        public void AccountChargeTest()
+        public async Task AccountChargeTest()
         {
             var acessBank = new Bank("ACCESS BANK NIGERIA", "044");
             var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
             var accountCharge = new RaveAccountCharge(raveConfig);
 
-            var accountParams = new AccountChargeParams(TestConsts.publicKey, "Anonymous", "customer", "user@example.com", TestConsts.accessAccountNumber, 509, acessBank.BankCode, transRef);
+            var txref = Guid.NewGuid().ToString("N");
 
-            var chargeResponse = accountCharge.Charge(accountParams).Result;
+
+            var accountParams = new AccountChargeParams(TestConsts.publicKey, "Anonymous", "Customer", "user@example.com", TestConsts.accessAccountNumber, 509, acessBank.BankCode, txref);
+
+            var chargeResponse = await accountCharge.Charge(accountParams);
+
+            //Assert
+            Assert.AreEqual("success-pending-validation", chargeResponse.Data.Status);
 
             if (chargeResponse.Data.Status == "success-pending-validation")
             {
                 //If it asks for otp. Do request again
                 accountParams.Otp = TestConsts.accessAccountOTP;
-                chargeResponse = accountCharge.Charge(accountParams).Result;
+                chargeResponse = await accountCharge.Charge(accountParams);
             }
 
-            Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Instruction);
-            Trace.WriteLine(chargeResponse.Data.ValidateInstructions.Valparams);
-            Trace.WriteLine(chargeResponse.Data.ValidateInstruction);
+            Trace.WriteLine($"ValidateInstructions: { chargeResponse.Data.ValidateInstructions.Instruction}");
+            Trace.WriteLine($"ValidateInstructions.Valparams: { chargeResponse.Data.ValidateInstructions.Valparams}");
+
+            Trace.WriteLine($"ValidateInstruction: {chargeResponse.Data.ValidateInstruction}");
+
             Assert.IsNotNull(chargeResponse.Data);
             Assert.AreEqual("success", chargeResponse.Status);
-            // ValidateCardCharge(chargeResponse.Data.FlwRef);
+            await VerifyAccountCharge(txref);
         }
 
         [TestMethod]
-        public void ValidateAccountChargeTest()
+        public async Task ValidateAccountChargeTest()
         {
             var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
             var accountValidate = new RaveAccountChargeValidation(raveConfig);
-            var val = accountValidate.ValidateCharge(new AccountValidateChargeParams(TestConsts.publicKey, sampleSuccessfulFwRef, TestConsts.accessAccountOTP)).Result;
+            var val = await accountValidate.ValidateCharge(new AccountValidateChargeParams(TestConsts.publicKey, sampleSuccessfulFwRef, TestConsts.accessAccountOTP));
 
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");
@@ -110,6 +100,24 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
             }
 
         }
+
+        public async Task VerifyAccountCharge(string txRef)
+        {
+
+            var raveTransaction = new RaveTransaction(new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false));
+
+            var transVerify = await raveTransaction.VerifyTransaction(new VerifyTransactoinParams(TestConsts.secretKey, txRef));
+
+
+            Assert.AreEqual("success", transVerify.Status);
+            Assert.AreEqual("success-pending-validation", transVerify.Data.Status);
+
+
+
+
+
+        }
+
 
     }
 }

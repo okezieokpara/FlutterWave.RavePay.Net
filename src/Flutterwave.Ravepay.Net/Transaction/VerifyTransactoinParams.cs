@@ -17,10 +17,11 @@ namespace Flutterwave.Ravepay.Net
             Seckey = seckey;
             Normalize = 1;
         }
-        public VerifyTransactoinParams(string seckey, string flwRef)
+
+        public VerifyTransactoinParams(string seckey, string txRef)
         {
             Seckey = seckey;
-            FlwRef = flwRef;
+            TxRef = txRef;
             Normalize = 1;
         }
 
@@ -29,8 +30,8 @@ namespace Flutterwave.Ravepay.Net
         /// string
         /// This is the unique reference, unique to the particular transaction being carried out. e.g. “flw_ref”: “FLW-MOCK-6f52518a2ecca2b6b090f9593eb390ce”
         /// </summary>
-        [JsonProperty("flw_ref")]
-        public string FlwRef { get; set; }
+        //[JsonProperty("flw_ref")]
+        //public string FlwRef { get; set; }
 
         /// <summary>
         /// This is a unique key generated for each button created on Rave’s dashboard. It starts with a prefix ‘FLWSECK’ and ends with suffix ‘X’.
@@ -41,13 +42,13 @@ namespace Flutterwave.Ravepay.Net
         /// <summary>
         /// This is used to get the response object in a normalize form, just pass the value "1".
         /// </summary>
-        [JsonProperty("normalize ")]
+        [JsonProperty("normalize")]
         public int Normalize { get; set; }
 
         /// <summary>
         /// This is the merchant's unique reference. It can be passed instead of flw_ref
         /// </summary>
-        [JsonProperty("tx_ref")]
+        [JsonProperty("txref")]
         public string TxRef { get; set; }
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace Flutterwave.RavePay.TestCore
             var config = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey);
             var trans = new RaveTransaction(config);
 
-            var response = trans.TransactionVerification(new VerifyTransactoinParams(TestConsts.secretKey, dummyTxRef)).Result;
+            var response = trans.VerifyTransaction(new VerifyTransactoinParams(TestConsts.secretKey, dummyTxRef)).Result;
             Assert.IsNotNull(response.Message);
             Assert.AreEqual(response.Status, "success");
         }

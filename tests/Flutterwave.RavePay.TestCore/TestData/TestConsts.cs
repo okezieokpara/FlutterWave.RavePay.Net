@@ -20,11 +20,11 @@ namespace Flutterwave.RavePay.TestCore
 
 
         public static string recurringPbKey = Config["PaymentButtons:1:publicKey"];
-        public static string recurringScKey = Config["PaymentButtons:1:secret"];
+        public static string recurringScKey = Environment.GetEnvironmentVariable("recurringScKey");
         public static string tranxRef = "45495";
 
         public static string preauthPbkey = Config["PaymentButtons:2:publicKey"];
-        public static string preauthSecretKey = Config["PaymentButtons:2:secret"];
+        public static string preauthSecretKey = Environment.GetEnvironmentVariable("preauthSecretKey");
 
         public static string testCardNo = Config["TestCards:DefaultTesCard:CardNo"];
         public static string testCVV = Config["TestCards:DefaultTesCard:CVV"];

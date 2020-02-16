@@ -8,9 +8,9 @@ namespace Flutterwave.Ravepay.Net.Security
     /// Implements Flutterwave standard for encryption
     /// https://github.com/TadeSamson/RavePaymentDataEncryption
     /// </summary>
-    internal class RaveEncryption: IPaymentDataEncryption
+    internal class RaveEncryption : IPaymentDataEncryption
     {
-        
+
         public string GetEncryptionKey(string secretKey)
         {
 
@@ -35,13 +35,13 @@ namespace Flutterwave.Ravepay.Net.Security
             return ASCIIEncoding.UTF8.GetString(combineKey);
         }
 
-        
+
         public string EncryptData(string encryptionKey, string data)
         {
             TripleDES des = new TripleDESCryptoServiceProvider();
             des.Mode = CipherMode.ECB;
             des.Padding = PaddingMode.PKCS7;
-            des.Key = Encoding.UTF8.GetBytes(encryptionKey);
+            des.Key = ASCIIEncoding.UTF8.GetBytes(encryptionKey);
             ICryptoTransform cryptoTransform = des.CreateEncryptor();
             byte[] dataBytes = ASCIIEncoding.UTF8.GetBytes(data);
             byte[] encryptedDataBytes = cryptoTransform.TransformFinalBlock(dataBytes, 0, dataBytes.Length);

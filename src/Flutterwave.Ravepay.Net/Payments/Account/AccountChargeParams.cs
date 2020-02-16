@@ -27,18 +27,26 @@ namespace Flutterwave.Ravepay.Net.Payments
         /// This specifies that the payment method being used is for account payments
         /// </summary>
         [JsonProperty("payment_type")]
-        public  string PaymentType { get; set; }
+        public string PaymentType { get; set; }
 
         [JsonProperty("accountbank")]
         public string Accountbank { get; set; }
 
         /// <summary>
+        /// This is required for Zenith bank account payments, you are required to collect the customer's date of birth and pass it in this format DDMMYYYY.
         /// This requires that the customer date of birth is collected and passed in this format DDMMYYYY
         /// </summary>
         [JsonProperty("passcode")]
         public string Passcode { get; set; }
 
         [JsonProperty("otp")]
-        public  string Otp { get; set; }
+        public string Otp { get; set; }
+
+        /// <summary>
+        /// This is the customer's bvn number.
+        /// </summary>
+        /// <remarks>(Required for UBA account payment option)</remarks>
+        [JsonProperty("bvn")]
+        public string Bvn { get; set; }
     }
 }

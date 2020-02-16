@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Flutterwave.Ravepay.Net;
 using Flutterwave.Ravepay.Net.Payments;
+using Flutterwave.RavePay.TestCore.TestData;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Flutterwave.RavePay.TestCore.PaymentTests
@@ -19,10 +20,9 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
 
             var cardCharge = new RaveCardCharge(raveConfig);
 
-            var cardParams = new CardChargeParams(TestConsts.recurringPbKey, TestConsts.customerFirstName, TestConsts.customerLastName, TestConsts.customerEmail,
-                3500)
-            { CardNo = "5438898014560229", Cvv = "789", Expirymonth = "09", Expiryyear = "19", TxRef = Guid.NewGuid().ToString("N") }
-            ;
+            var cardParams = new CardChargeParams(TestConsts.publicKey, TestConsts.customerFirstName, TestConsts.customerLastName, TestConsts.customerEmail,
+                3500, SampleCards.DefaultTestCard)
+            { TxRef = Guid.NewGuid().ToString("N") };
 
             // Act
             var cha = await cardCharge.Charge(cardParams);
@@ -34,19 +34,18 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
                 cardParams.Pin = "3310";
                 cardParams.Otp = "12345";
                 cardParams.SuggestedAuth = "PIN";
-                cha = cardCharge.Charge(cardParams).Result; // Try to charge the card again
+                cha = await cardCharge.Charge(cardParams); // Try to charge the card again
             }
-
 
             // Assert
             Assert.IsNotNull(cha.Data);
             Assert.AreEqual("success", cha.Status);
-            ValidateCardCharge(cha.Data.FlwRef);
+            await ValidateCardCharge(cha.Data.FlwRef);
 
         }
 
         [TestMethod]
-        public void CardCharegIntl_Test()
+        public async Task CardCharegIntl_Test()
         {
             // Arrange
             var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
@@ -54,18 +53,15 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
 
             var cardParams = new CardChargeParams(TestConsts.publicKey, TestConsts.customerFirstName,
                 TestConsts.customerLastName, TestConsts.customerEmail,
-                3500)
+                3500, SampleCards.IntlVisaCard)
             {
-                CardNo = TestConsts.testVisaIntlCardNo,
-                Cvv = TestConsts.testVisaIntlCardCVV,
-                Expirymonth = TestConsts.testVisaIntlExpiryMonth,
-                Expiryyear = TestConsts.testVisaIntlExpiryYear,
+
                 TxRef = Guid.NewGuid().ToString("N")
             };
 
 
             // Act
-            var cha = cardCharge.Charge(cardParams).Result;
+            var cha = await cardCharge.Charge(cardParams);
 
 
             Assert.AreEqual("AUTH_SUGGESTION", cha.Message);
@@ -76,7 +72,7 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
             cardParams.BillingAddress = "470 Mundet PI";
             cardParams.BillingState = "NJ";
             cardParams.BillingCountry = "US";
-            cha = cardCharge.Charge(cardParams).Result; // Try to charge the card again
+            cha = await cardCharge.Charge(cardParams); // Try to charge the card again
 
             // Assert
             Assert.IsNotNull(cha.Data);
@@ -95,7 +91,7 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
         }
 
         [TestMethod]
-        public void CardCharegIntl3DSecure_Test()
+        public async Task CardCharegIntl3DSecure_Test()
         {
             //Based on  https://developer.flutterwave.com/v2.0/reference#section-using-avs-address-verification-system-to-charge-an-international-card
 
@@ -105,18 +101,15 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
 
             var cardParams = new CardChargeParams(TestConsts.publicKey, TestConsts.customerFirstName, TestConsts.customerLastName,
                TestConsts.customerEmail,
-                3500)
+                3500, SampleCards.Visa3dSecure)
             {
-                CardNo = TestConsts.testVisaIntlCardNo,
-                Cvv = TestConsts.testVisaIntlCardCVV,
-                Expirymonth = TestConsts.testVisaIntlExpiryMonth,
-                Expiryyear = TestConsts.testVisaIntlExpiryYear,
+
                 TxRef = Guid.NewGuid().ToString("N")
             };
 
 
             // Act
-            var cha = cardCharge.Charge(cardParams).Result;
+            var cha = await cardCharge.Charge(cardParams);
             Assert.AreEqual("AVS_VBVSECURECODE", cha.Data.SuggestedAuth);
             Assert.AreEqual("AUTH_SUGGESTION", cha.Message);
 
@@ -127,7 +120,7 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
             cardParams.BillingAddress = "470 Mundet PI";
             cardParams.BillingState = "NJ";
             cardParams.BillingCountry = "US";
-            cha = cardCharge.Charge(cardParams).Result; // Try to charge the card again
+            cha = await cardCharge.Charge(cardParams); // Try to charge the card again
 
             // Assert
             Assert.AreEqual("02", cha.Data.ChargeResponseCode);
@@ -149,13 +142,42 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
         }
 
         [TestMethod]
-        public void CardCharegVerve_Test()
+        public async Task CardCharegVerve_Test()
         {
+            // Arrange
 
+            var raveConfig = new RavePayConfig(TestConsts.publicKey, TestConsts.secretKey, false);
+
+            var cardCharge = new RaveCardCharge(raveConfig);
+
+            var cardParams = new CardChargeParams(TestConsts.publicKey, TestConsts.customerFirstName, TestConsts.customerLastName, TestConsts.customerEmail,
+                3500, SampleCards.LocalVerve)
+            { TxRef = Guid.NewGuid().ToString("N") };
+
+            // Act
+            var cha = await cardCharge.Charge(cardParams);
+            Assert.AreEqual("AUTH_SUGGESTION", cha.Message);
+            Assert.IsFalse(string.IsNullOrEmpty(cha.Data.SuggestedAuth));
+
+
+            if (cha.Message == "AUTH_SUGGESTION" && cha.Data.SuggestedAuth == "PIN") // Some payment cards my require further authentication i.e pin and OTP
+            //https://developer.flutterwave.com/v2.0/reference#section-using-a-local-mastercardverve-ie-card-issued-in-nigeria
+            {
+                cardParams.Pin = "3310";
+                cardParams.Otp = "12345";
+                cardParams.SuggestedAuth = "PIN";
+                cha = await cardCharge.Charge(cardParams); // Try to charge the card again
+            }
+
+
+            // Assert
+            Assert.IsNotNull(cha.Data);
+            Assert.AreEqual("success", cha.Status);
+            await ValidateCardCharge(cha.Data.FlwRef);
         }
 
         [TestMethod]
-        public void CardCharegMasterCard_Test()
+        public async Task CardCharegMasterCard_Test()
         {
 
         }
@@ -166,11 +188,11 @@ namespace Flutterwave.RavePay.TestCore.PaymentTests
 
         }
 
-        public static void ValidateCardCharge(string txRef)
+        public async static Task ValidateCardCharge(string txRef)
         {
             var raveConfig = new RavePayConfig(TestConsts.recurringPbKey, TestConsts.recurringScKey, false);
             var cardValidation = new RaveCardChargeValidation(raveConfig);
-            var val = cardValidation.ValidateCharge(new CardValidateChargeParams(TestConsts.recurringPbKey, txRef, "12345")).Result;
+            var val = await cardValidation.ValidateCharge(new CardValidateChargeParams(TestConsts.recurringPbKey, txRef, "12345"));
 
             Trace.WriteLine($"Status: {val.Status}");
             Trace.WriteLine($"Message: {val.Message}");

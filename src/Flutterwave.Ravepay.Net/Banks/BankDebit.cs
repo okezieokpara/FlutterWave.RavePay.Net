@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Flutterwave.Ravepay.Net.Banks
 {
@@ -29,8 +26,10 @@ namespace Flutterwave.Ravepay.Net.Banks
 
         [JsonProperty("bankname")]
         public string BankName { get; set; }
+
         [JsonProperty("bankcode")]
         public string BankCode { get; set; }
+
         [JsonProperty("internetbanking")]
         public bool InternetBanking { get; set; }
 
