@@ -39,6 +39,7 @@ namespace Flutterwave.Ravepay.Net.Security
         public string EncryptData(string encryptionKey, string data)
         {
             TripleDES des = new TripleDESCryptoServiceProvider();
+            
             des.Mode = CipherMode.ECB;
             des.Padding = PaddingMode.PKCS7;
             des.Key = ASCIIEncoding.UTF8.GetBytes(encryptionKey);
